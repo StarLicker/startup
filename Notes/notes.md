@@ -7,6 +7,7 @@
 **Web Servers Info**
 - Elastic IP: http://52.207.139.208/
 - SSH command: ssh -i "C:\Users\Admin\Desktop\CS260_Server.pem" ubuntu@52.207.139.208
+- Or on laptop: ssh -i "C:\Users\benny\Downloads\CS260_Server.pem" ubuntu@52.207.139.208
 - Might need to upgrade from free tier t2.micro, but I can do this without changing the IP address now because I set up an elastic IP
 - To restart caddy after making changes to the caddyFile: sudo caddy restart
 
