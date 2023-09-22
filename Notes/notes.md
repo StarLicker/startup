@@ -15,4 +15,11 @@
 - scp .pem index.html ubuntu@ip:public_html/...
 
 **Web Certificates/Network Security**
-- 
+- see slides
+
+**HTML**
+- & = &amp
+- < = &lt;
+- see slides for rest of syntax
+
+
