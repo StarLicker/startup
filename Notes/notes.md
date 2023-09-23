@@ -20,11 +20,11 @@
 **HTML**
 - < !-- how to write comments in html -->
 
-![HTML ELements](https://github.com/StarLicker/startup/blob/main/Images/HTML_elements.jpg)
+![HTML ELements](https://github.com/StarLicker/startup/blob/main/Images/HTML_elements.png)
 
-![HTML ELements Continued](https://github.com/StarLicker/startup/blob/main/Images/HTML_elements_2.jpg)
+![HTML ELements Continued](https://github.com/StarLicker/startup/blob/main/Images/HTML_elements_2.png)
 
-![HTML Special Characters](https://github.com/StarLicker/startup/blob/main/Images/HTML_special_characters.jpg)
+![HTML Special Characters](https://github.com/StarLicker/startup/blob/main/Images/HTML_special_characters.png)
 
 
 
