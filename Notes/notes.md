@@ -18,8 +18,7 @@
 - see slides
 
 **HTML**
-- & = &amp
-- < = &lt;
-- see slides for rest of syntax
+- <!-- how to write comments in html -->
+
 
 
