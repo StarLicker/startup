@@ -27,4 +27,10 @@
 ![HTML Special Characters](https://github.com/StarLicker/startup/blob/main/Images/html_special_characters.png)
 
 
+**CSS**
+- you can make changes in the head, the tag, or a css style file (probably the best option). CSS cascades through the document and will prefer the style in the smallest implementation.
+- tag, id, and class selectors (p, id="", .center, p.center etc.)
 
+(selector attatched to a tag) p {
+                                  color: green;
+                                }
