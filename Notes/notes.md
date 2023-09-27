@@ -29,7 +29,8 @@
 
 **CSS**
 - you can make changes in the head, the tag, or a css style file (probably the best option). CSS cascades through the document and will prefer the style in the smallest implementation.
-- tag, id, and class selectors (p, id="", .center, p.center etc.)
+- tag, id, state/psuedo, and class selectors (p, id="", p:hover, .center, p.center etc.)
+- see slides for more
 
 (selector attatched to a tag) p {
                                   color: green;
