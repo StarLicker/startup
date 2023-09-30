@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>Conversion Central</title>
+        <title>Gotta Convert Them All</title>
     </head>
     <body>
         <!-- Use header, main, and footer elements for a nice structure -->
@@ -20,5 +20,18 @@
             <!-- This is a way to style in html before we start using CSS -->
             <hr />
         </header>
+        <main>
+            <h1>Welcome!</h1>
+            <p>Log in to start converting</p>
+            <form method="get" action="convert.html">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="your username" />
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="********" />
+                <button type="submit">Log In</button>
+            </form>
+            <h3>Need to create an account? Create one here</h3>
+            <p><a href="index.html">Create Account</a></p>
+        </main>
     </body>
 </html>
