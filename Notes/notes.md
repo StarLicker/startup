@@ -43,3 +43,6 @@
 **How to deploy**
 - On laptop: ./deployFiles.sh -k "C:\Users\benny\Downloads\CS260_Server.pem" -h gotta-convert-them-all.click -s simon
 - On PC: ./deployFiles.sh -k "C:\Users\Admin\Desktop\CS260_Server.pem" -h gotta-convert-them-all.click -s simon
+
+- On laptop: ./deployFiles.sh -k "C:\Users\benny\Downloads\CS260_Server.pem" -h gotta-convert-them-all.click -s startup
+- On PC: ./deployFiles.sh -k "C:\Users\Admin\Desktop\CS260_Server.pem" -h gotta-convert-them-all.click -s startup
