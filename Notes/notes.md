@@ -1,4 +1,4 @@
-*CS 260 Notes*
+***CS 260 Notes***
 
 **Git Notes - 9/15/23**
 - I started using Git and GitHub over the summer for my work, but this class helped me understand the difference between forks and branches.
