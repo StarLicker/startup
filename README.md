@@ -34,3 +34,4 @@ I built out the html structure for my application
 - Log in - I have a form and submit button for both logging in and creating an account.
 - Database - The history and user stats on the history page represent data pulled from the database for the user.
 - WebSocket - Rankings on the scoreboard page represent current stats of all users.
+- 3rd Party Service Calls - the section on the conversion page where the given conversion is shown represents a call to ChatGPT to get the measurements of the requested objects.
