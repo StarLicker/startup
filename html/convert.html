@@ -20,5 +20,38 @@
             <!-- This is a way to style in html before we start using CSS -->
             <hr />
         </header>
+        <main>
+            <h2>Select Measurement Type</h2>
+            <!-- Weight, heigth, length, width, volume, distance -->
+            <fieldset>
+                <legend>Measurement Types</legend>
+                <label for="weight">Weight</label>
+                <input type="radio" id="weight" name="varMeasurement" value="weight" />
+                <label for="height">Height</label>
+                <input type="radio" id="height" name="varMeasurement" value="height" />
+                <label for="length">Length</label>
+                <input type="radio" id="length" name="varMeasurement" value="length" />
+                <label for="width">Width</label>
+                <input type="radio" id="width" name="varMeasurement" value="width" />
+                <label for="volume">Volume</label>
+                <input type="radio" id="volume" name="varMeasurement" value="volume" checked />
+                <label for="distance">Distance</label>
+                <input type="radio" id="distance" name="varMeasurement" value="distance" />
+            </fieldset>
+            <p></p>
+            <form method="get">
+                <label for="object_one">First object or thing</label>
+                <input type="text" id="object_one" placeholder="apples" />
+                <label for="object_two">Second object or thing</label>
+                <input type="text" id="object_two" placeholder="pluto" />
+            </form>
+            <h2>Conversion Result</h2>
+            <p>Approximately 4.6 x 10^22 apples would fit inside Pluto!</p>
+            <p></p>
+            <p></p>
+            <p><a href="history.html">Conversion History</a></p>
+            <p><a href="scoreboard.html">Scoreboard</a></p>
+            <p><a href="index-login.html">Log Out</a></p>
+        </main>
     </body>
 </html>
