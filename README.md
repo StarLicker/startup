@@ -33,4 +33,4 @@ I built out the html structure for my application
 - Images - I'm not sure what other images I'll add, but for now I added a generic "two arrows in a circle" to represent conversions.
 - Log in - I have a form and submit button for both logging in and creating an account.
 - Database - The history and user stats on the history page represent data pulled from the database for the user.
-- WebSocket - Rankings on the scoreboard page current stats of all users.
+- WebSocket - Rankings on the scoreboard page represent current stats of all users.
