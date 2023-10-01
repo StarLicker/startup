@@ -22,3 +22,13 @@ Once you create an account you'll be able to make the conversions you have only 
 ![Semester_Project_Sketch_Front](https://github.com/StarLicker/startup/blob/main/Images/CS260_Project_Front.jpg)
 
 ![Semester_Project_Sketch_Front](https://github.com/StarLicker/startup/blob/main/Images/CS260_Project_Back.jpg)
+
+**HTML Deliverable**
+I built out the html structure for my application
+- HTML pages - 5 HTML pages for creating accounts, logging in, converting, seeing conversion history, and viewing the scoreboard.
+- Links - Linked log in/create account pages to conversion page. Links on conversion, history, and scoreboard pages to each of the other pages along with a log out option.
+- Text - Text describing features of each page and placeholder text for text boxes.
+- Images - I'm not sure what other images I'll add, but for now I added a generic "two arrows in a circle" to represent conversions.
+- Log in - I have a form and submit button for both logging in and creating an account.
+- Database - The history and user stats on the history page represent data pulled from the database for the user.
+- WebSocket - Rankings on the scoreboard page current stats of all users.
