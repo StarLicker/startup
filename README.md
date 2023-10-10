@@ -35,3 +35,8 @@ I built out the html structure for my application
 - Database - The history and user stats on the history page represent data pulled from the database for the user.
 - WebSocket - Rankings on the scoreboard page represent current stats of all users.
 - 3rd Party Service Calls - the section on the conversion page where the given conversion is shown represents a call to ChatGPT to get the measurements of the requested objects.
+
+**CSS Deliverable**
+
+*Simon*
+- I didn't change all that much but I did add an animation to the home page. I made the text that says "Login to play" get bigger and turn green so it catches the user's attention.
