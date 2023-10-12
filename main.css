@@ -86,6 +86,11 @@ h2 {
     padding: 10px;
 }
 
+.feature_nav {
+    display: flex;
+    flex-direction: row;
+}
+
 a, a:visited, a:active {
     text-decoration: none;
     color:rgb(202, 173, 101);
