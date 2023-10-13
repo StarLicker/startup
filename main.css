@@ -36,7 +36,6 @@ main, section {
     background-color: rgb(141, 165, 209);
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
 }
 
 footer {
@@ -66,6 +65,19 @@ li {
     border: none;
 }
 
+button {
+    color: rgb(86, 132, 219);
+    background-color: rgb(202, 173, 101);
+    border: none;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+button:hover {
+    color: rgb(48, 82, 141)
+}
+
 hr {
     width: 100%;
 }
@@ -82,8 +94,59 @@ h1 {
     justify-content: center;
 }
 
+.welcome {
+    color: rgb(22, 49, 95);
+}
+
+.welcome_message {
+    font-weight: bold;
+    font-size: 18px;
+    color: rgb(38, 72, 132);
+}
+
 h2 {
+    color: rgb(48, 82, 141);
     padding: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+p {
+    font-weight: bold;
+    font-size: 18px;
+    color: rgb(38, 72, 132);
+}
+
+.login_row {
+    color: rgb(65, 102, 166);
+    font-weight: bold;
+    padding: 10px;
+    margin: 0px auto;
+}
+
+.login_form {
+    padding: 10px;
+}
+
+.button_container {
+    padding: 30px;
+    margin: 0px auto;
+}
+
+.login_button {
+    padding: 10px;
+}
+
+.login_button:hover {
+    animation: grow 2s ease;
+}
+
+.sign_in_button {
+    padding: 5px;
+    border: solid medium rgb(202, 173, 101);
 }
 
 .feature_nav {
@@ -116,6 +179,18 @@ a:hover {
     100% {
         transform-origin: center center;
         transform: rotate(360deg);
+    }
+}
+
+@keyframes grow {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
     }
 }
 

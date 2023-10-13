@@ -26,18 +26,15 @@
             <hr />
         </header>
         <main>
-            <h1>Welcome!</h1>
-            <p>Create an account to start converting:</p>
+            <h1 class="welcome">Welcome!</h1>
+            <p class="welcome_message">Create an account to start converting</p>
             <form method="get" action="convert.html">
-                <label for="username">Username</label>
-                <input type="text" id="username" placeholder="your username" />
-                <label for="password">Password:</label>
-                <input type="password" id="password" placeholder="********" />
-                <label for="repeat_password">Re-type Password:</label>
-                <input type="password" id="repeat_password" placeholder="********" />
-                <button type="submit">Create Account</button>
+                <p class="login_row">Username: <input class="login_form" type="text" id="username" placeholder="Ex: benny" /></p>
+                <p class="login_row">Password: <input class="login_form" type="password" id="password" placeholder="********" /></p>
+                <p class="login_row">Repeat password: <input class="login_form" type="password" id="repeat_password" placeholder="********" /></p>
+                <div class="button_container"><button class="login_button" type="submit">Create Account</button></div>
             </form>
-            <h3><a href="login.html">Or log in here</a></h3>
+            <h3 class="sign_in_button"><a href="login.html">Or log in here</a></h3>
         </main>
     </body>
     <footer>
