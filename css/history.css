@@ -1,0 +1,63 @@
+.vertical_line {
+    width: 4px; /* Line width */
+    background-color: rgb(245, 233, 199); /* Line color */
+    height: 100%;
+}
+
+.header {
+    text-decoration: underline;
+}
+
+.history_main {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+}
+
+.stats_section {
+    width: fit-content;
+    padding: 25px;
+}
+
+.history_section {
+    width: fit-content;
+    padding: 25px;
+    padding-left: 50px;
+}
+
+.stats_table {
+    color: rgb(58, 94, 158);
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.stats_row {
+    padding-bottom: 20px;
+}
+
+.stats_data {
+    padding: 10px;
+}
+
+.stat_value {
+    color: goldenrod;
+}
+
+.history_table {
+    color: rgb(58, 94, 158);
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.history_headers {
+    color: rgb(202, 173, 101);
+    padding: 20px;
+}
+
+.history_row {
+    padding-bottom: 20px;
+}
+
+.history_data {
+    padding: 20px;
+}

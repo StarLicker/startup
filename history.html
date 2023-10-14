@@ -5,6 +5,7 @@
         <title>History</title>
         <link rel="icon" href="Images/convert_icon(32x32).ico" />
         <link rel="stylesheet" href="css/main.css" />
+        <link rel="stylesheet" href="css/history.css" />
     </head>
     <body>
         <div class="spinner middle"><img src="/Images/conversion.png" alt="conversion image" width="200"></div>
@@ -23,41 +24,52 @@
             <!-- This is a way to style in html before we start using CSS -->
             <hr />
         </header>
-        <main>
-            <h2>Conversion History</h2>
-            <table>
-                <tr>
-                    <th>Date</th>
-                    <th>First Object</th>
-                    <th>Second Object</th>
-                    <th>Measurement Type</th>
-                    <th>Result</th>
-                </tr>
-                <tr>
-                    <td>9/30/23</td>
-                    <td>Apples</td>
-                    <td>Pluto</td>
-                    <td>Volume</td>
-                    <td>Approximately 4.6 x 10^22 apples would fit inside Pluto!</td>
-                </tr>
-            </table>
-            <p>Looking kinda empty... do more conversions!</p>
-            <hr />
-            <h3>Stats</h3>
-            <table>
-                <tr>
-                    <td>Number of Unique Objects</td>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <td>Number of unique Object Pairs</td>
-                    <td>1</td>
-                </tr>
-                <tr>
-                    <td>Total number of conversions</td>
-                    <td>1</td>
-                </tr>
-            </table>
+        <main class="history_main">
+            <section class="stats_section">
+                <h2 class="header">Stats</h2>
+                <table class="stats_table">
+                    <tr class="stats_row">
+                        <td class="stats_data">Number of Unique Objects</td>
+                        <td class="stats_data stat_value">2</td>
+                    </tr>
+                    <tr class="stats_row">
+                        <td class="stats_data">Number of unique Object Pairs</td>
+                        <td class="stats_data stat_value">1</td>
+                    </tr>
+                    <tr class="stats_row">
+                        <td class="stats_data">Total number of conversions</td>
+                        <td class="stats_data stat_value">1</td>
+                    </tr>
+                </table>
+            </section>
+            <div class="vertical_line"></div>
+            <section class="history_section">
+                <h2 class="header">Conversion History</h2>
+                <table class="history_table">
+                    <tr class="history_row">
+                        <th class="history_headers">Date</th>
+                        <th class="history_headers">First Object</th>
+                        <th class="history_headers">Second Object</th>
+                        <th class="history_headers">Measurement Type</th>
+                        <th class="history_headers">Result</th>
+                    </tr>
+                    <tr class="history_row">
+                        <td class="history_data">9/30/23</td>
+                        <td class="history_data">Apples</td>
+                        <td class="history_data">Pluto</td>
+                        <td class="history_data">Volume</td>
+                        <td class="history_data">Approximately 4.6 x 10^22 apples would fit inside Pluto!</td>
+                    </tr>
+                    <tr class="history_row">
+                        <td class="history_data">9/15/23</td>
+                        <td class="history_data">Inches</td>
+                        <td class="history_data">Foot</td>
+                        <td class="history_data">Length</td>
+                        <td class="history_data">There are 12 inches in a foot!</td>
+                    </tr>
+                </table>
+                <!-- <p>Looking kinda empty... do more conversions!</p> -->
+            </section>
         </main>
     </body>
     <footer>
