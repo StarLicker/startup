@@ -5,6 +5,7 @@
         <title>Scoreboard</title>
         <link rel="icon" href="Images/convert_icon(32x32).ico" />
         <link rel="stylesheet" href="css/main.css" />
+        <link rel="stylesheet" href="css/scoreboard.css" />
     </head>
     <body>
         <div class="spinner middle"><img src="/Images/conversion.png" alt="conversion image" width="200"></div>
@@ -23,61 +24,60 @@
             <!-- This is a way to style in html before we start using CSS -->
             <hr />
         </header>
-        <main>
-            <section>
+        <main class="scoreboard_main">
+            <section class="object_section">
                 <h3>Most Unique Objects Used</h3>
-                <table>
-                    <tr>
-                        <th>Rank</th>
-                        <th>User</th>
-                        <th>Unique Objects Converted</th>
+                <table class="table">
+                    <tr class="table_row">
+                        <th class="table_header">Rank</th>
+                        <th class="table_header">User</th>
+                        <th class="table_header">Unique Objects Converted</th>
                     </tr>
-                    <tr>
-                        <td>1.</td>
-                        <td>StarLicker</td>
-                        <td>5</td>
+                    <tr class="table_row">
+                        <td class="table_data">1.</td>
+                        <td class="table_data">StarLicker</td>
+                        <td class="table_data">5</td>
                     </tr>
-                    <tr>
-                        <td>2.</td>
-                        <td>Isabelle</td>
-                        <td>3</td>
+                    <tr class="table_row">
+                        <td class="table_data">2.</td>
+                        <td class="table_data">Isabelle</td>
+                        <td class="table_data">3</td>
                     </tr>
-                    <tr>
-                        <td>3.</td>
-                        <td>Olivia</td>
-                        <td>1</td>
+                    <tr class="table_row">
+                        <td class="table_data">3.</td>
+                        <td class="table_data">Olivia</td>
+                        <td class="table_data">1</td>
                     </tr>
                 </table>
             </section>
-            <hr />
-            <section>
+            <div class="vertical_line"></div>
+            <section class="object_pair_section">
                 <h3>Most Unique Object Pairs</h3>
-                <table>
-                    <tr>
-                        <th>Rank</th>
-                        <th>User</th>
-                        <th>Unique Object Pairs Converted</th>
+                <table class="table">
+                    <tr class="table_row">
+                        <th class="table_header">Rank</th>
+                        <th class="table_header">User</th>
+                        <th class="table_header">Unique Object Pairs Converted</th>
                     </tr>
-                    <tr>
-                        <td>1.</td>
-                        <td>StarLicker</td>
-                        <td>3</td>
+                    <tr class="table_row">
+                        <td class="table_data">1.</td>
+                        <td class="table_data">StarLicker</td>
+                        <td class="table_data">3</td>
                     </tr>
-                    <tr>
-                        <td>2.</td>
-                        <td>Isabelle</td>
-                        <td>2</td>
+                    <tr class="table_row">
+                        <td class="table_data">2.</td>
+                        <td class="table_data">Isabelle</td>
+                        <td class="table_data">2</td>
                     </tr>
-                    <tr>
-                        <td>3.</td>
-                        <td>Olivia</td>
-                        <td>1</td>
+                    <tr class="table_row">
+                        <td class="table_data">3.</td>
+                        <td class="table_data">Olivia</td>
+                        <td class="table_data">1</td>
                     </tr>
                 </table>
             </section>
         </main>
     </body>
-    <hr />
     <footer>
         <nav class="feature_nav">
             <li><a class="github" href="https://github.com/StarLicker/startup/tree/main">GitHub Repo</a></li>

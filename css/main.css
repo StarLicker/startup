@@ -154,6 +154,10 @@ p {
     animation: grow 2s ease;
 }
 
+.convert_button:hover {
+    animation: grow 2s ease;
+}
+
 .sign_in_button {
     padding: 5px;
     border: solid medium rgb(202, 173, 101);

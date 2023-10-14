@@ -1,0 +1,48 @@
+h3 {
+    color: rgb(48, 82, 141);
+    padding: 10px;
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.vertical_line {
+    width: 4px; /* Line width */
+    background-color: rgb(245, 233, 199); /* Line color */
+    height: 100%;
+}
+
+.scoreboard_main {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    align-items: start;
+}
+
+.object_section {
+    width: fit-content;
+    padding: 25px;
+    align-content: start;
+}
+
+.object_pair_section {
+    width: fit-content;
+    padding: 25px;
+    padding-left: 50px;
+}
+
+.table {
+    color: rgb(58, 94, 158);
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.table_header {
+    color: rgb(202, 173, 101);
+    padding: 20px;
+}
+
+.table_row {
+    padding-bottom: 20px;
+}
