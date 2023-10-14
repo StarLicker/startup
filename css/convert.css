@@ -1,0 +1,31 @@
+label {
+    padding-left: 20px;
+}
+
+.fieldset {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(58, 94, 158);
+    border-color: rgb(202, 173, 101);
+    border-style: solid;
+}
+
+.object_form {
+    display: flex;
+    flex-direction: row;
+}
+
+.object_input {
+    color: rgb(58, 94, 158);
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.object_separater {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.button_container {
+    font-size: 30;
+}

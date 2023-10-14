@@ -4,7 +4,8 @@
         <meta charset="UTF-8" />
         <title>Conversion Central</title>
         <link rel="icon" href="Images/convert_icon(32x32).ico" />
-        <link rel="stylesheet" href="main.css" />
+        <link rel="stylesheet" href="css/main.css" />
+        <link rel="stylesheet" href="css/convert.css" />
     </head>
     <body>
         <div class="spinner middle"><img src="/Images/conversion.png" alt="conversion image" width="200"></div>
@@ -26,7 +27,7 @@
         <main>
             <h2>Select Measurement Type</h2>
             <!-- Weight, heigth, length, width, volume, distance -->
-            <fieldset>
+            <fieldset class="fieldset" border="0">
                 <legend>Measurement Types</legend>
                 <label for="weight">Weight</label>
                 <input type="radio" id="weight" name="varMeasurement" value="weight" />
@@ -42,22 +43,35 @@
                 <input type="radio" id="distance" name="varMeasurement" value="distance" />
             </fieldset>
             <p></p>
-            <form method="get">
-                <label for="object_one">First object or thing</label>
-                <input type="text" id="object_one" placeholder="apples" />
-                <label for="object_two">Second object or thing</label>
-                <input type="text" id="object_two" placeholder="pluto" />
+            <form class="object_form" method="get">
+                <div class="object_separater">
+                    <fieldset class="fieldset" border="0">
+                        <legend>First object or thing</legend>
+                        <input class="object_input" type="text" id="object_one" placeholder="Ex: apples" border="0"/>
+                    </fieldset>
+                </div>
+                <div class="object_separater">
+                    <fieldset class="fieldset" border="0">
+                        <legend>Second object or thing</legend>
+                        <input class="object_input" type="text" id="object_two" placeholder="Ex: pluto" border="0"/>
+                    </fieldset>
+                </div>
+                <div class="button_container">
+                    <button type="submit">Convert</button>
+                </div>
             </form>
-            <h2>Conversion Result</h2>
-            <p>Approximately 4.6 x 10^22 apples would fit inside Pluto!</p>
+            <fieldset class="fieldset">
+                <legend>Conversion Result</legend>
+                <p>Approximately 4.6 x 10^22 apples would fit inside Pluto!</p>
+            </fieldset>
         </main>
     </body>
     <footer>
-        <h2><a class="github" href="https://github.com/StarLicker/startup/tree/main">GitHub Repo</a></h2>
         <nav class="feature_nav">
-            <p><a href="history.html">Conversion History</a></p>
-            <p><a href="scoreboard.html">Scoreboard</a></p>
-            <p><a href="index-login.html">Log Out</a></p>
+            <li><a class="github" href="https://github.com/StarLicker/startup/tree/main">GitHub Repo</a></li>
+            <!-- <li><a href="history.html">Conversion History</a></li>
+            <li><a href="scoreboard.html">Scoreboard</a></li> -->
+            <li><a href="login.html">Log Out</a></li>
         </nav>
     </footer>
 </html>
