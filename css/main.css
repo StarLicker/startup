@@ -139,6 +139,9 @@ p {
 
 .login_form {
     padding: 10px;
+    font-weight: bold;
+    font-size: 15px;
+    color: rgb(22, 49, 95);
 }
 
 .button_container {
