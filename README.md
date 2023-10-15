@@ -40,3 +40,13 @@ I built out the html structure for my application
 
 *Simon*
 - I didn't change all that much but I did add an animation to the home page. I made the text that says "Login to play" get bigger and turn green so it catches the user's attention.
+
+*Startup*
+I styled my application to basically it's final appearance using CSS. I'll probably tweak things here and there as the semester goes on and I learn new things, but it will essentially stay the same. For example, when I get the login function working, I'll probably remove the links in the header to the other pages.
+- Added header, footer, and main content.
+- Navigation/anchor elements: For the navigation/anchor elements I removed the underline, changed the color, and made the color go darker when the mouse is hovering over it.
+- Responsive to window resizing: It resizes fairly nicely, but I did add a minimum width so that everything would be shown properly. Again, I'll probably tweak things as I learn more, but I think I have a good start. It looks pretty good on my phone too, although I might try darkening some of the lighter fonts to see if that helps visibility.
+- Application elements: I have good whitespace and contrast between elements and I experimented with using fieldspaces and vertical separaters to help divide some sections of the application.
+- Application text content: styled all the text consistently with fonts and colors. Threw in some underlines as well and bolding as well.
+- Application images: I added an icon for the webpage and I animated the conversion image (the two arrows in a circle) the spin clockwise. I made it slightly transparent and put it in the background so it will stay in the top left corner.
+- Github: Multiple different, meaningful commits.
