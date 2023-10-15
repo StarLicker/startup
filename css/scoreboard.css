@@ -46,3 +46,15 @@ h3 {
 .table_row {
     padding-bottom: 20px;
 }
+
+.table_row_first {
+    color: gold;
+}
+
+.table_row_second {
+    color: silver;
+}
+
+.table_row_third {
+    color: rgb(209, 137, 3);
+}
