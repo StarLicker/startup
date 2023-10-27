@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <title>Gotta Convert Them All</title>
         <link rel="icon" href="Images/convert_icon(32x32).ico" />
+        <script src="javascript/login.js"></script>
         <link rel="stylesheet" href="css/main.css" />
     </head>
     <body>
@@ -26,10 +27,10 @@
         <main>
             <h1 class="welcome">Welcome!</h1>
             <p class="welcome_message">Log in to start converting</p>
-            <form method="get" action="convert.html">
+            <form method="get">
                 <p class="login_row">Username: <input class="login_form" type="text" id="username" placeholder="Ex: benny" /></p>
                 <p class="login_row">Password: <input class="login_form" type="password" id="password" placeholder="********" /></p>
-                <div class="button_container"><button class="login_button" type="submit">Log In</button></div>
+                <div class="button_container"><button class="login_button" type="submit" onclick="login()">Log In</button></div>
             </form>
             <h3 class="sign_in_button"><a href="index.html">Or create an account here</a></h3>
         </main>
