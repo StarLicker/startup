@@ -6,6 +6,7 @@
         <link rel="icon" href="Images/convert_icon(32x32).ico" />
         <link rel="stylesheet" href="css/main.css" />
         <link rel="stylesheet" href="css/convert.css" />
+        <script src="javascript/convert.js"></script>
     </head>
     <body>
         <div class="spinner middle"><img src="/Images/conversion.png" alt="conversion image" width="200"></div>
@@ -39,8 +40,9 @@
                 <input type="radio" id="width" name="varMeasurement" value="width" />
                 <label for="volume">Volume</label>
                 <input type="radio" id="volume" name="varMeasurement" value="volume" checked />
-                <label for="distance">Distance</label>
-                <input type="radio" id="distance" name="varMeasurement" value="distance" />
+                <!-- Realized that length and distance are the same -->
+                <!-- <label for="distance">Distance</label>
+                <input type="radio" id="distance" name="varMeasurement" value="distance" /> -->
             </fieldset>
             <p></p>
             <form class="object_form" method="get">
@@ -57,7 +59,7 @@
                     </fieldset>
                 </div>
                 <div class="button_container">
-                    <button class="convert_button" type="submit">Convert</button>
+                    <button class="convert_button" type="submit" onclick="convert()">Convert</button>
                 </div>
             </form>
             <fieldset class="fieldset">
