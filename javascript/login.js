@@ -14,11 +14,35 @@ function signUp() {
     }
     // Otherwise, we tell user that passwords don't match
     else {
-        const errorMSG = document.createElement('div');
-        errorMSG.textContent = "Passwords don't match";
+        const template = document.getElementById('errorMSG_template');
+        const location = document.getElementById('first_error_location');
+        displayErrorMessage(template, location);
     }
 }
 
 function login() {
-    window.location.href = "convert.html";
+    // Get username and password
+    const username = document.querySelector("#username");
+    const password = document.querySelector("#password");
+
+    // Check if input matches a user
+    const checkStorage = localStorage.getItem(username.value);
+    
+    if (checkStorage === password.value) {
+        window.location.href = "convert.html";
+    }
+    else {
+        const template = document.getElementById('errorMSG_template');
+        const location = document.getElementById('login_error_location');
+        displayErrorMessage(template, location);
+    }
+}
+
+function displayErrorMessage(template, location) {
+    const errorMSG = template.cloneNode(true);
+    errorMSG.textContent = "Passwords don't match";
+    errorMSG.style.color = "red";
+    errorMSG.style.position = "relative";
+    errorMSG.style.fontSize = "15px";
+    location.appendChild(errorMSG);
 }

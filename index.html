@@ -28,14 +28,16 @@
             <hr />
         </header>
         <main>
-            <h1 class="welcome">Welcome!</h1>
+            <h1 class="welcome" id="errorMSG_template">Welcome!</h1>
             <p class="welcome_message">Create an account to start converting</p>
-            <form method="get">
+            <form method="get" id="first_error_location">
                 <p class="login_row">Username: <input class="login_form" type="text" id="username" placeholder="Ex: benny" /></p>
                 <p class="login_row">Password: <input class="login_form" type="password" id="password" placeholder="********" /></p>
                 <p class="login_row">Repeat password: <input class="login_form" type="password" id="repeat_password" placeholder="********" /></p>
-                <div class="button_container"><button class="login_button" onclick="signUp()" type="submit">Create Account</button></div>
+                <!-- Having this button inside the form makes the window.location.href = "convert.html" not work -->
+                <!-- <div class="button_container"><button class="login_button" onclick="signUp()" type="submit">Create Account</button></div> -->
             </form>
+            <div class="button_container"><button class="login_button" onclick="signUp()" type="submit">Create Account</button></div>
             <h3 class="sign_in_button"><a href="login.html">Or log in here</a></h3>
         </main>
     </body>
