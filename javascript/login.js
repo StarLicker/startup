@@ -18,6 +18,7 @@ function signUp() {
     else {
         // If sign up data is good, log the user in and send them to convert page
         if ((password.value === repeat_password.value) == true) {
+            addUser(username.value);
             localStorage.setItem("username", username.value);
             localStorage.setItem(username.value, password.value);
             window.location.href = "convert.html";
@@ -63,5 +64,21 @@ function displayErrorMessage(template, location, message) {
         errorMSG.style.position = "relative";
         errorMSG.style.fontSize = "15px";
         location.appendChild(errorMSG);
+    }
+}
+
+function addUser(newUser) {
+    let users = localStorage.getItem("users");
+
+    if (users) {
+        users = JSON.parse(users);
+        users.push(newUser);
+        users = JSON.stringify(users);
+        localStorage.setItem("users", users);
+    }
+    else {
+        users = [newUser];
+        users = JSON.stringify(users);
+        localStorage.setItem("users", users);
     }
 }

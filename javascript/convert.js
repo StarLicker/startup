@@ -82,7 +82,8 @@ function getDate() {
 }
 
 function addNewObjectPair(objectOne, objectTwo) {
-    let uniquePairs = localStorage.getItem("pairs");
+    const finder = localStorage.getItem("username");
+    let uniquePairs = localStorage.getItem(finder + "_pairs");
     let newPair = {
         "object_one": objectOne.value,
         "object_two": objectTwo.value
@@ -105,18 +106,19 @@ function addNewObjectPair(objectOne, objectTwo) {
         if (!pairFound) {
             uniquePairs.push(newPair);
             uniquePairs = JSON.stringify(uniquePairs);
-            localStorage.setItem("pairs", uniquePairs);
+            localStorage.setItem(finder + "_pairs", uniquePairs);
         }
     }
     else {
         let pairs = [newPair];
         pairs = JSON.stringify(pairs);
-        localStorage.setItem("pairs", pairs);
+        localStorage.setItem(finder + "_pairs", pairs);
     }
 }
 
 function addNewObject(object) {
-    let objectList = localStorage.getItem("objects");
+    const finder = localStorage.getItem("username");
+    let objectList = localStorage.getItem(finder + "_objects");
 
     if (objectList) {
         let objectFound = false;
@@ -131,12 +133,12 @@ function addNewObject(object) {
         if (!objectFound) {
             objectList.push(object.value);
             objectList = JSON.stringify(objectList);
-            localStorage.setItem("objects", objectList);
+            localStorage.setItem(finder + "_objects", objectList);
         }
     }
     else {
         let objects = [object.value]
         objects = JSON.stringify(objects);
-        localStorage.setItem("objects", objects);
+        localStorage.setItem(finder + "_objects", objects);
     }
 }

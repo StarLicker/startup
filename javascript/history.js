@@ -3,11 +3,11 @@ function updateStats() {
     let uniquePairs = document.querySelector("#unique_pairs");
     let totalConversions = document.querySelector("#total_conversions");
 
-    let numObjects = localStorage.getItem("objects");
+    let numObjects = localStorage.getItem(user + "_objects");
     numObjects = JSON.parse(numObjects);
     numObjects = numObjects.length;
 
-    let numPairs = localStorage.getItem("pairs");
+    let numPairs = localStorage.getItem(user + "_pairs");
     numPairs = JSON.parse(numPairs);
     numPairs = numPairs.length;
 
@@ -62,5 +62,6 @@ function updateHistory() {
     }
 }
 
+let user = localStorage.getItem("username");
 updateStats();
 updateHistory();
