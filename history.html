@@ -29,15 +29,15 @@
                 <table class="stats_table">
                     <tr class="stats_row">
                         <td class="stats_data">Number of Unique Objects</td>
-                        <td class="stats_data stat_value">2</td>
+                        <td class="stats_data stat_value"><div id="unique_obj">2</div></td>
                     </tr>
                     <tr class="stats_row">
                         <td class="stats_data">Number of unique Object Pairs</td>
-                        <td class="stats_data stat_value">1</td>
+                        <td class="stats_data stat_value"><div id="unique_pairs">4</div></td>
                     </tr>
                     <tr class="stats_row">
                         <td class="stats_data">Total number of conversions</td>
-                        <td class="stats_data stat_value">1</td>
+                        <td class="stats_data stat_value"><div id="total_conversions">2</div></td>
                     </tr>
                 </table>
             </section>
@@ -52,23 +52,25 @@
                         <th class="history_headers">Measurement Type</th>
                         <th class="history_headers">Result</th>
                     </tr>
-                    <tr class="history_row">
+                    <tbody id="history"></tbody>
+                    <!-- <tr class="history_row" id="history_template">
                         <td class="history_data">9/30/23</td>
                         <td class="history_data">Apples</td>
                         <td class="history_data">Pluto</td>
                         <td class="history_data">Volume</td>
                         <td class="history_data">Approximately 4.6 x 10^22 apples would fit inside Pluto!</td>
-                    </tr>
-                    <tr class="history_row">
+                    </tr> -->
+                    <!-- <tr class="history_row">
                         <td class="history_data">9/15/23</td>
                         <td class="history_data">Inches</td>
                         <td class="history_data">Foot</td>
                         <td class="history_data">Length</td>
                         <td class="history_data">There are 12 inches in a foot!</td>
-                    </tr>
+                    </tr> -->
                 </table>
                 <!-- <p>Looking kinda empty... do more conversions!</p> -->
             </section>
+            <script src="javascript/history.js"></script>
         </main>
     </body>
     <footer>
