@@ -2,7 +2,10 @@
 //TODO: store measurement type and object pair
 //TODO: Diplay placeholder conversion result
 
-function convert() {
+function convert(event) {
+    // Prevents default values from replacing new ones after form submission
+    event.preventDefault();
+
     // Determine which radio button measurement option has been selected
     const selectedMeasurement = document.querySelector("input.measurementType:checked").value;
     localStorage.setItem("measurementType", selectedMeasurement);
@@ -45,6 +48,11 @@ function convert() {
         user_history = JSON.stringify(user_history);
         localStorage.setItem(history, user_history);
     }
+
+    // Check if the search included a new object pair or new objects
+    addNewObjectPair(objectOne, objectTwo);
+    addNewObject(objectOne);
+    addNewObject(objectTwo);
 }
 
 function getResult(objectOne, objectTwo) {
@@ -73,12 +81,62 @@ function getDate() {
     return datetime;
 }
 
-// function to add object pair to localStorage so we can keep track of scoreboard stats
-function addObjectPair() {
+function addNewObjectPair(objectOne, objectTwo) {
+    let uniquePairs = localStorage.getItem("pairs");
+    let newPair = {
+        "object_one": objectOne.value,
+        "object_two": objectTwo.value
+    }
 
+    let pairFound = false;
+    if (uniquePairs) {
+        uniquePairs = JSON.parse(uniquePairs);
+
+        for (let pair in uniquePairs) {
+            pair = uniquePairs[pair];
+            const one = pair.object_one;
+            const two = pair.object_two;
+            // If pair is unique, add it
+            if ( (one === objectOne.value) && (two === objectTwo.value) ) {
+                pairFound = true;
+            }
+        }
+        
+        if (!pairFound) {
+            uniquePairs.push(newPair);
+            uniquePairs = JSON.stringify(uniquePairs);
+            localStorage.setItem("pairs", uniquePairs);
+        }
+    }
+    else {
+        let pairs = [newPair];
+        pairs = JSON.stringify(pairs);
+        localStorage.setItem("pairs", pairs);
+    }
 }
 
-// function to add the conversion to localStorage so we can display user history
-function addConversion() {
+function addNewObject(object) {
+    let objectList = localStorage.getItem("objects");
 
+    if (objectList) {
+        let objectFound = false;
+        objectList = JSON.parse(objectList);
+        for (let obj in objectList) {
+            obj = objectList[obj];
+            if (obj === object.value) {
+                objectFound = true;
+            }
+        }
+
+        if (!objectFound) {
+            objectList.push(object.value);
+            objectList = JSON.stringify(objectList);
+            localStorage.setItem("objects", objectList);
+        }
+    }
+    else {
+        let objects = [object.value]
+        objects = JSON.stringify(objects);
+        localStorage.setItem("objects", objects);
+    }
 }
