@@ -42,6 +42,7 @@ function login() {
     const checkStorage = localStorage.getItem(username.value);
     
     if (checkStorage === password.value) {
+        localStorage.setItem("username", username.value);
         window.location.href = "convert.html";
         msgDisplayed = false;
     }

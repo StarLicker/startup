@@ -9,13 +9,12 @@
         <script src="javascript/convert.js"></script>
     </head>
     <body>
-        <div class="spinner middle"><img src="/Images/conversion.png" alt="conversion image" width="200"></div>
+        <div class="spinner middle"><img src="/Images/conversion.png" alt="conversion image" width="150"></div>
         <!-- Use header, main, and footer elements for a nice structure -->
         <header>
             <h1 class="title">Gotta Convert Them All</h1>
             <nav>
                 <menu>
-                    <li><a href="index.html">Home</a></li>
                     <li><a href="convert.html">Convert</a></li>
                     <li><a href="history.html">History</a></li>
                     <li><a href="scoreboard.html">Scoreboard</a></li>
@@ -31,15 +30,15 @@
             <fieldset class="fieldset" border="0">
                 <legend>Measurement Types</legend>
                 <label for="weight">Weight</label>
-                <input type="radio" id="weight" name="varMeasurement" value="weight" />
+                <input class="measurementType" type="radio" id="weight" name="varMeasurement" value="weight" />
                 <label for="height">Height</label>
-                <input type="radio" id="height" name="varMeasurement" value="height" />
+                <input class="measurementType" type="radio" id="height" name="varMeasurement" value="height" />
                 <label for="length">Length</label>
-                <input type="radio" id="length" name="varMeasurement" value="length" />
+                <input class="measurementType" type="radio" id="length" name="varMeasurement" value="length" />
                 <label for="width">Width</label>
-                <input type="radio" id="width" name="varMeasurement" value="width" />
+                <input class="measurementType" type="radio" id="width" name="varMeasurement" value="width" />
                 <label for="volume">Volume</label>
-                <input type="radio" id="volume" name="varMeasurement" value="volume" checked />
+                <input class="measurementType" type="radio" id="volume" name="varMeasurement" value="volume" checked />
                 <!-- Realized that length and distance are the same -->
                 <!-- <label for="distance">Distance</label>
                 <input type="radio" id="distance" name="varMeasurement" value="distance" /> -->
@@ -64,7 +63,7 @@
             </form>
             <fieldset class="fieldset">
                 <legend>Conversion Result</legend>
-                <p>Approximately 4.6 x 10^22 apples would fit inside Pluto!</p>
+                <p id="result_field">Approximately 4.6 x 10^22 apples would fit inside Pluto!</p>
             </fieldset>
         </main>
     </body>

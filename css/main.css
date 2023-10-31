@@ -29,7 +29,6 @@ header {
     flex-direction: column;
     height: fit-content;
     width: 100%;
-    min-height: 200;
 }
 
 main {
