@@ -50,3 +50,15 @@ I styled my application to basically it's final appearance using CSS. I'll proba
 - Application text content: styled all the text consistently with fonts and colors. Threw in some underlines as well and bolding as well.
 - Application images: I added an icon for the webpage and I animated the conversion image (the two arrows in a circle) the spin clockwise. I made it slightly transparent and put it in the background so it will stay in the top left corner.
 - Github: Multiple different, meaningful commits.
+
+**JavaScript Deliverable**
+
+*Simon*
+- I didn't change much but I deployed it to my production environment
+
+*Startup*
+- Link to my GitHub on each page, deployed to production environemnt, and multiple meaningful Git commits.
+- Implemented login/sign up with JavaScript, as well as logging out.
+- Added support for future database data (saves your conversion data so you can see it on the history page).
+- Added support for future WebSocket (user rankings shown in the scoreboard page). I still need to implement a way to sort by ranking, but I'm not sure the best way to do that yet.
+- Added JavaScript for other applicaiton logic (if passwords don't match, shows placeholder conversion result, conversion fields don't default to placeholder values etc. and all other JavaScript not mentioned above).
