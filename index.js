@@ -3,12 +3,7 @@
 const express = require('express');
 const app = express();
 
-//const port = process.argv.length > 2 ? process.argv[2] : 4000;
-const port = 4000;
-app.listen(port, function () {
-  console.log(`Listening on port ${port}`);
-});
-
+const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 //JSON body parsing using built-in middleware
 app.use(express.json());
@@ -27,3 +22,7 @@ app.use(express.static('public'));
 // apiRouter.post('/history', (req, res) => {
 //     history = 
 // })
+
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+})
