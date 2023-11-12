@@ -2,7 +2,9 @@
 //TODO: store measurement type and object pair
 //TODO: Diplay placeholder conversion result
 
-function convert(event) {
+let errorMsgDisplayed = false;
+
+async function convert(event) {
     // Prevents default values from replacing new ones after form submission
     event.preventDefault();
 
@@ -11,53 +13,87 @@ function convert(event) {
     localStorage.setItem("measurementType", selectedMeasurement);
 
     // Store what objects the user entered
-    const objectOne = document.querySelector("#object_one");
-    const objectTwo = document.querySelector("#object_two");
-    localStorage.setItem("objectOne", objectOne.value);
-    localStorage.setItem("objectTwo", objectTwo.value);
+    const o1 = document.querySelector("#object_one");
+    const o2 = document.querySelector("#object_two");
 
-    // Get conversion result and current date
-    const result = getResult(objectOne, objectTwo);
-    const conversionDate = getDate();
+    const objectOne = o1.value.trim();
+    const objectTwo = o2.value.trim();
 
-    // save conversion to history
-    const conversion = {
-        date: conversionDate,
-        objectOne: objectOne.value,
-        objectTwo: objectTwo.value,
-        measurementType: selectedMeasurement,
-        result: result
+    // Check if objects are valid
+    // if (objectOne === "" || objectTwo === "") {
+    //     // Display error message
+    //     const template = document.getElementById('error_msg');
+    //     const location = document.getElementById('error_location');
+    //     displayErrorMessage(template, location, "Please fill object one and two fields with valid objects");
+    //     errorMsgDisplayed = true;
+    // }
+    // errorMsgDisplayed = false;
+
+    const request = {
+        obj1: objectOne,
+        obj2: objectTwo,
+        type: selectedMeasurement
     };
 
-    // Check local storage and add new conversion to user history
-    const history = localStorage.getItem("username") + "_history";
-    let userHistory = localStorage.getItem(history);
+    try {
+        // Make conversion using openai API and recieve response
+        const response = await fetch('/api/convert', {
+            method: 'POST',
+            body: JSON.stringify(request),
+        });
 
-    if (userHistory !== null) {
-        // Add new conversion to history and save to local storage
-        userHistory = JSON.parse(userHistory);
-        userHistory.push(conversion);
+        const conversion = await response.json();
 
-        userHistory = JSON.stringify(userHistory);
-        localStorage.setItem(history, userHistory);
+        localStorage.setItem("objectOne", objectOne);
+        localStorage.setItem("objectTwo", objectTwo);
+
+        // Get conversion result and current date
+        //const result = getResult(objectOne, objectTwo);
+        const result = conversion.message;
+        const conversionDate = getDate();
+
+        // save conversion to history
+        const conversion_info = {
+            date: conversionDate,
+            objectOne: objectOne,
+            objectTwo: objectTwo,
+            measurementType: selectedMeasurement,
+            result: result
+        };
+
+        // Check local storage and add new conversion to user history
+        const history = localStorage.getItem("username") + "_history";
+        let userHistory = localStorage.getItem(history);
+
+        if (userHistory !== null) {
+            // Add new conversion to history and save to local storage
+            userHistory = JSON.parse(userHistory);
+            userHistory.push(conversion_info);
+
+            userHistory = JSON.stringify(userHistory);
+            localStorage.setItem(history, userHistory);
+        }
+        else {
+            // Create user history and save it to local storage
+            let user_history = [conversion_info];
+
+            user_history = JSON.stringify(user_history);
+            localStorage.setItem(history, user_history);
+        }
+
+        // Check if the search included a new object pair or new objects
+        addNewObjectPair(objectOne, objectTwo);
+        addNewObject(objectOne);
+        addNewObject(objectTwo);
+    } catch {
+        // If there was an error, display error message
+        displayResult("Sorry, an error occurred while servicing request. Please try again later.");
     }
-    else {
-        // Create user history and save it to local storage
-        let user_history = [conversion];
-
-        user_history = JSON.stringify(user_history);
-        localStorage.setItem(history, user_history);
-    }
-
-    // Check if the search included a new object pair or new objects
-    addNewObjectPair(objectOne, objectTwo);
-    addNewObject(objectOne);
-    addNewObject(objectTwo);
 }
 
 function getResult(objectOne, objectTwo) {
     // Haven't connected to ChatGPT with node.js yet, so just use a placeholder result
-    const result = "You input '" + objectOne.value + "' and '" + objectTwo.value + 
+    const result = "You input '" + objectOne + "' and '" + objectTwo + 
         "'. Conversion service still not online, please check again later.";
 
     displayResult(result);
@@ -85,8 +121,8 @@ function addNewObjectPair(objectOne, objectTwo) {
     const finder = localStorage.getItem("username");
     let uniquePairs = localStorage.getItem(finder + "_pairs");
     let newPair = {
-        "object_one": objectOne.value,
-        "object_two": objectTwo.value
+        "object_one": objectOne,
+        "object_two": objectTwo
     }
 
     let pairFound = false;
@@ -98,7 +134,7 @@ function addNewObjectPair(objectOne, objectTwo) {
             const one = pair.object_one;
             const two = pair.object_two;
             // If pair is unique, add it
-            if ( (one === objectOne.value) && (two === objectTwo.value) ) {
+            if ( (one === objectOne) && (two === objectTwo) ) {
                 pairFound = true;
             }
         }
@@ -125,20 +161,32 @@ function addNewObject(object) {
         objectList = JSON.parse(objectList);
         for (let obj in objectList) {
             obj = objectList[obj];
-            if (obj === object.value) {
+            if (obj === object) {
                 objectFound = true;
             }
         }
 
         if (!objectFound) {
-            objectList.push(object.value);
+            objectList.push(object);
             objectList = JSON.stringify(objectList);
             localStorage.setItem(finder + "_objects", objectList);
         }
     }
     else {
-        let objects = [object.value]
+        let objects = [object]
         objects = JSON.stringify(objects);
         localStorage.setItem(finder + "_objects", objects);
+    }
+}
+
+function displayErrorMessage(template, location, message) {
+    // Check if an error message has already been displayed
+    if (!msgDisplayed) {
+        const errorMSG = template.cloneNode(true);
+        errorMSG.textContent = message;
+        errorMSG.style.color = "red";
+        errorMSG.style.position = "relative";
+        errorMSG.style.fontSize = "15px";
+        location.appendChild(errorMSG);
     }
 }

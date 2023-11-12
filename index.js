@@ -1,5 +1,3 @@
-// For node implementation
-
 const express = require('express');
 const app = express();
 
@@ -12,17 +10,30 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Router for service endpoints
-// var apiRouter = express.Router();
-// app.use('/api',apiRouter);
+var apiRouter = express.Router();
+app.use('/api', apiRouter);
 
-// Store conversion
-// apiRouter.post('/convert')
+apiRouter.post("/convert", async (req, res) => {
+  const type = req.body.measurementType;
+  const objectOne = req.body.obj1;
+  const objectTwo = req.body.obj2;
 
-// Get history
-// apiRouter.post('/history', (req, res) => {
-//     history = 
-// })
+  const prompt = "Based on " + type + ", how many " + objectOne + " would fit within " + objectTwo + "?";
+
+  try {
+    return res.status(200).json({
+      success: true,
+      message: prompt
+    });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(300).json({
+      success: false,
+      message: "Error occurred during OpenAi processing. Please try again later."
+    });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
-})
+});
