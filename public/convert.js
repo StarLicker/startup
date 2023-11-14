@@ -29,7 +29,7 @@ async function convert(event) {
     // }
     // errorMsgDisplayed = false;
 
-    const request = {
+    const req = {
         obj1: objectOne,
         obj2: objectTwo,
         type: selectedMeasurement
@@ -37,10 +37,14 @@ async function convert(event) {
 
     try {
         // Make conversion using openai API and recieve response
-        const response = await fetch('/api/convert', {
+
+        const request = {
             method: 'POST',
-            body: JSON.stringify(request),
-        });
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(req)
+        }
+
+        const response = await fetch('/api/convert', request);
 
         const conversion = await response.json();
 
@@ -49,7 +53,7 @@ async function convert(event) {
 
         // Get conversion result and current date
         //const result = getResult(objectOne, objectTwo);
-        const result = conversion.message;
+        const result = conversion.body;
         const conversionDate = getDate();
 
         // save conversion to history
@@ -85,6 +89,7 @@ async function convert(event) {
         addNewObjectPair(objectOne, objectTwo);
         addNewObject(objectOne);
         addNewObject(objectTwo);
+        displayResult(result);
     } catch {
         // If there was an error, display error message
         displayResult("Sorry, an error occurred while servicing request. Please try again later.");
