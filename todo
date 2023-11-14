@@ -1,0 +1,12 @@
+CSS:
+- Add wrapping/text changes to conversion result
+- Add some way to help separate history entries
+- Darken some of the lighter yellow text colors
+
+JS:
+- Figure out how to sort leaderboards
+- Add a visual and/or textual queue to tell the user when openai is processing request
+
+Node/OpenAI:
+- Probably need to have 3 separate api calls for figuring out the
+  measurements for each object and then the conversion itself
