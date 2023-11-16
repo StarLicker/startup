@@ -18,6 +18,36 @@ app.use(express.static('public'));
 var apiRouter = express.Router();
 app.use('/api', apiRouter);
 
+// Take new conversion and store in database
+let history = []
+let username = ""
+apiRouter.post("/store_conversion", (req, res) => {
+  if (username !== req.body.username) {
+    history = []
+  }
+  else {
+    history.push(req.body);
+  }
+  res.status(200).json({
+    success: true,
+    body: history
+  });
+});
+
+// Retrieve user history from database
+apiRouter.get("/history", (req, res) => {
+  if (username === req.body.username) {
+    res.status(200).json({
+        success: true,
+        body: history
+      });
+  }
+  else {
+    res.status(300).send("Current user does not have access to this information.");
+  }
+});
+
+// Take convert request and send to openai endpoint
 apiRouter.post("/convert", async (req, res) => {
   const type = req.body.type;
   const objectOne = req.body.obj1;
@@ -59,6 +89,11 @@ apiRouter.post("/convert", async (req, res) => {
       body: "Error occurred during OpenAi processing. Please try again later."
     });
   }
+});
+
+// Return the application's default page if the path is unknown
+app.use((_req, res) => {
+  res.sendFile('index.html', { root: 'public' });
 });
 
 app.listen(port, () => {

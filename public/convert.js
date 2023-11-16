@@ -64,7 +64,30 @@ async function convert(event) {
             measurementType: selectedMeasurement,
             result: result
         };
+        displayResult(result);
+        saveConversion(conversion_info);
+    } catch {
+        // If there was an error, display error message
+        displayResult("Sorry, an error occurred while servicing request. Please try again later.");
+    }
+}
 
+async function saveConversion(conversion_info) {
+    // Try saving the conversion to database
+    const username = localStorage.getItem("username");
+    try {
+        const response = await fetch('/api/store_conversion', {
+            method: 'POST',
+            headers: {'content-type': 'application.json'},
+            body: {
+                username: username,
+                body: conversion_info
+            }
+        });
+        const name = localStorage.getItem("username") + "_history";
+        localStorage.setItem(name, response.body);
+    } catch {
+        // If we encounter an error, store everything locally
         // Check local storage and add new conversion to user history
         const history = localStorage.getItem("username") + "_history";
         let userHistory = localStorage.getItem(history);
@@ -89,10 +112,6 @@ async function convert(event) {
         addNewObjectPair(objectOne, objectTwo);
         addNewObject(objectOne);
         addNewObject(objectTwo);
-        displayResult(result);
-    } catch {
-        // If there was an error, display error message
-        displayResult("Sorry, an error occurred while servicing request. Please try again later.");
     }
 }
 
