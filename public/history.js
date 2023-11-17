@@ -21,13 +21,25 @@ function updateStats() {
     totalConversions.textContent = numConversions;
 }
 
-function updateHistory() {
+async function updateHistory() {
     let historyTable = [];
-    const userHistory = localStorage.getItem("username") + "_history";
-    let history = localStorage.getItem(userHistory);
-    if (history) {
-        historyTable = JSON.parse(history);
-        historyTable.reverse();
+    let history = "";
+    try {
+        const response = await fetch("/api/history");
+        const convert = await response.json();
+        history = convert.body;
+        
+        if (history) {
+            historyTable = history.reverse();
+        }
+    } catch {
+        const userHistory = localStorage.getItem("username") + "_history";
+        history = localStorage.getItem(userHistory);
+        
+        if (history) {
+            historyTable = JSON.parse(history);
+            historyTable.reverse();
+        }
     }
 
     const tableBody = document.querySelector("#history");

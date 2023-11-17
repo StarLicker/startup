@@ -58,6 +58,7 @@ async function convert(event) {
 
         // save conversion to history
         const conversion_info = {
+            username: localStorage.getItem("username"),
             date: conversionDate,
             objectOne: objectOne,
             objectTwo: objectTwo,
@@ -74,18 +75,17 @@ async function convert(event) {
 
 async function saveConversion(conversion_info) {
     // Try saving the conversion to database
-    const username = localStorage.getItem("username");
+    const request = {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify(conversion_info)
+    }
+
     try {
-        const response = await fetch('/api/store_conversion', {
-            method: 'POST',
-            headers: {'content-type': 'application.json'},
-            body: {
-                username: username,
-                body: conversion_info
-            }
-        });
+        const response = await fetch('/api/store_conversion', request);
+        const history = await response.json();
         const name = localStorage.getItem("username") + "_history";
-        localStorage.setItem(name, response.body);
+        localStorage.setItem(name, history.body);
     } catch {
         // If we encounter an error, store everything locally
         // Check local storage and add new conversion to user history

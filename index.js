@@ -24,27 +24,26 @@ let username = ""
 apiRouter.post("/store_conversion", (req, res) => {
   if (username !== req.body.username) {
     history = []
+    username = req.body.username;
+    if (history.length === 0) {
+      history.push(req.body);
+    }
   }
   else {
     history.push(req.body);
   }
   res.status(200).json({
     success: true,
-    body: history
+    body: JSON.stringify(history)
   });
 });
 
 // Retrieve user history from database
-apiRouter.get("/history", (req, res) => {
-  if (username === req.body.username) {
+apiRouter.get("/history", (_req, res) => {
     res.status(200).json({
         success: true,
-        body: history
+        body: JSON.stringify(history)
       });
-  }
-  else {
-    res.status(300).send("Current user does not have access to this information.");
-  }
 });
 
 // Take convert request and send to openai endpoint
