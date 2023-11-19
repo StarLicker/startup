@@ -5,16 +5,28 @@ function updateStats() {
 
     let numObjects = localStorage.getItem(user + "_objects");
     numObjects = JSON.parse(numObjects);
-    numObjects = numObjects.length;
+    try {
+        numObjects = numObjects.length;
+    } catch {
+        numObjects = 0;
+    }
 
     let numPairs = localStorage.getItem(user + "_pairs");
     numPairs = JSON.parse(numPairs);
-    numPairs = numPairs.length;
+    try {
+        numPairs = numPairs.length;
+    } catch {
+        numPairs = 0;
+    }
 
     const history = localStorage.getItem("username") + "_history";
     let numConversions = localStorage.getItem(history);
     numConversions = JSON.parse(numConversions);
-    numConversions = numConversions.length;
+    try {
+        numConversions = numConversions.length;
+    } catch {
+        numConversions = 0;
+    }
 
     uniqueObjects.textContent = numObjects;
     uniquePairs.textContent = numPairs;

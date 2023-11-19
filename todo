@@ -6,6 +6,7 @@ CSS:
 JS:
 - Figure out how to sort leaderboards
 - Add a visual and/or textual queue to tell the user when openai is processing request
+- Disable all other buttons/links while conversion is processing
 
 Node/OpenAI:
 - Probably need to have 3 separate api calls for figuring out the

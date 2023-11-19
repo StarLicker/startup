@@ -5,6 +5,9 @@
 let errorMsgDisplayed = false;
 
 async function convert(event) {
+    // Disable buttons/links while conversion is processing
+    disablePage();
+
     // Prevents default values from replacing new ones after form submission
     event.preventDefault();
 
@@ -37,15 +40,12 @@ async function convert(event) {
 
     try {
         // Make conversion using openai API and recieve response
-
         const request = {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify(req)
         }
-
         const response = await fetch('/api/convert', request);
-
         const conversion = await response.json();
 
         localStorage.setItem("objectOne", objectOne);
@@ -86,6 +86,11 @@ async function saveConversion(conversion_info) {
         const history = await response.json();
         const name = localStorage.getItem("username") + "_history";
         localStorage.setItem(name, history.body);
+
+        // Check if the search included a new object pair or new objects
+        addNewObjectPair(conversion_info.objectOne, conversion_info.objectTwo);
+        addNewObject(conversion_info.objectOne);
+        addNewObject(conversion_info.objectTwo);
     } catch {
         // If we encounter an error, store everything locally
         // Check local storage and add new conversion to user history
@@ -213,4 +218,8 @@ function displayErrorMessage(template, location, message) {
         errorMSG.style.fontSize = "15px";
         location.appendChild(errorMSG);
     }
+}
+
+function disablePage() {
+    // Best way to implement?
 }
