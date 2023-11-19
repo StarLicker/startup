@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-var dotenv = require('dotenv');
+var dotenv = require('dotenv').config("C:\\Users\\benny\\OneDrive\\Desktop\\CS260\\startup\\.env");
 dotenv.load();
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
