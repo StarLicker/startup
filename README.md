@@ -63,6 +63,8 @@ I styled my application to basically it's final appearance using CSS. I'll proba
 - Added support for future WebSocket (user rankings shown in the scoreboard page). I still need to implement a way to sort by ranking, but I'm not sure the best way to do that yet.
 - Added JavaScript for other applicaiton logic (if passwords don't match, shows placeholder conversion result, conversion fields don't default to placeholder values etc. and all other JavaScript not mentioned above).
 
+**Simon/Startup Service**
+
 *Simon*
 - I deployed this service to my production environment
 
