@@ -62,3 +62,14 @@ I styled my application to basically it's final appearance using CSS. I'll proba
 - Added support for future database data (saves your conversion data so you can see it on the history page).
 - Added support for future WebSocket (user rankings shown in the scoreboard page). I still need to implement a way to sort by ranking, but I'm not sure the best way to do that yet.
 - Added JavaScript for other applicaiton logic (if passwords don't match, shows placeholder conversion result, conversion fields don't default to placeholder values etc. and all other JavaScript not mentioned above).
+
+*Simon*
+- I deployed this service to my production environment
+
+*Startup*
+- I created a http service using node and express!
+- My frontend is served up using express static middleware.
+- Frontend call third party service endpoints (OpenAI API)
+- Backend provides service endpoints (updating user history and retrieving user history)
+- Frontend calls service endpoints (OpenAI, updating user history, and retrieving user history)
+- Multiple, meaningful Git commits with comments.
