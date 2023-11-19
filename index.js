@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-var dotenv = require('dotenv').config({path: __dirname + '/.env'});
+require('dotenv').config()
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 // Setting up openai using apikey
