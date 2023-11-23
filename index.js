@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 require('dotenv').config()
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
+const DB = require('./database.js');
 
 // Setting up openai using apikey
 const OpenAI = require("openai");
