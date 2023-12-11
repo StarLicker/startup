@@ -21,31 +21,77 @@ var apiRouter = express.Router();
 app.use('/api', apiRouter);
 
 // Take new conversion and store in database
-let history = []
-let username = ""
 apiRouter.post("/store_conversion", (req, res) => {
-  if (username !== req.body.username) {
-    history = []
-    username = req.body.username;
-    if (history.length === 0) {
-      history.push(req.body);
-    }
-  }
-  else {
-    history.push(req.body);
-  }6
+  const result = DB.addConversion(req.body);
+
+  // Update user stats in database
+  //updateStats(req.body.username);
+
   res.status(200).json({
     success: true,
-    body: JSON.stringify(history)
+    body: JSON.stringify(result)
   });
 });
 
+// Store object
+apiRouter.post("/store_object", (req, res) => {
+  const result = DB.addObject(req.body);
+
+  // Update stats
+
+  res.status(200).json({
+    success: true,
+    body: JSON.stringify(result)
+  });
+  
+});
+
+// Get all objects
+apiRouter.get("/getObjects", (_req, res) => {
+  const result = DB.getObjects();
+
+  // Update stats
+
+  res.status(200).json({
+    success: true,
+    body: JSON.stringify(result)
+  });
+  
+});
+
+// Store pair
+apiRouter.post("/store_pair", (req, res) => {
+  const result = DB.addPair(req.body);
+
+  // Update stats
+
+  res.status(200).json({
+    success: true,
+    body: JSON.stringify(result)
+  });
+});
+
+// Get all pairs
+apiRouter.get("/getPairs", (_req, res) => {
+  const result = DB.getObjectPairs();
+
+  // Update stats
+
+  res.status(200).json({
+    success: true,
+    body: JSON.stringify(result)
+  });
+  
+});
+
 // Retrieve user history from database
-apiRouter.get("/history", (_req, res) => {
-    res.status(200).json({
-        success: true,
-        body: JSON.stringify(history)
-      });
+apiRouter.post("/history", async (req, res) => {
+  const history = await DB.getHistory(req.body.username)
+
+  res.status(200).json({
+      success: true,
+      body: JSON.stringify(history)
+    });
 });
 
 // Take convert request and send to openai endpoint

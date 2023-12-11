@@ -80,17 +80,24 @@ async function saveConversion(conversion_info) {
         headers: {'content-type': 'application/json'},
         body: JSON.stringify(conversion_info)
     }
-
+ 
     try {
         const response = await fetch('/api/store_conversion', request);
-        const history = await response.json();
+        const result = await response.json();
         const name = localStorage.getItem("username") + "_history";
         localStorage.setItem(name, history.body);
 
+        // Retrieve list of object pairs and objects
+        const obj = await fetch('/api/getObjects');
+        const objects = await obj.json();
+
+        const pr = await fetch('/api/getObjectPairs');
+        const pairs = await pr.json();
+
         // Check if the search included a new object pair or new objects
-        addNewObjectPair(conversion_info.objectOne, conversion_info.objectTwo);
-        addNewObject(conversion_info.objectOne);
-        addNewObject(conversion_info.objectTwo);
+        addNewObjectPair(conversion_info.objectOne, conversion_info.objectTwo, pairs);
+        addNewObject(conversion_info.objectOne, objects);
+        addNewObject(conversion_info.objectTwo, objects);
     } catch {
         // If we encounter an error, store everything locally
         // Check local storage and add new conversion to user history
@@ -146,9 +153,11 @@ function getDate() {
     return datetime;
 }
 
-function addNewObjectPair(objectOne, objectTwo) {
+async function addNewObjectPair(objectOne, objectTwo, pairs) {
     const finder = localStorage.getItem("username");
-    let uniquePairs = localStorage.getItem(finder + "_pairs");
+
+    let uniquePairs = pairs;
+    // let uniquePairs = localStorage.getItem(finder + "_pairs");
     let newPair = {
         "object_one": objectOne,
         "object_two": objectTwo
@@ -171,22 +180,37 @@ function addNewObjectPair(objectOne, objectTwo) {
         if (!pairFound) {
             uniquePairs.push(newPair);
             uniquePairs = JSON.stringify(uniquePairs);
-            localStorage.setItem(finder + "_pairs", uniquePairs);
+            //localStorage.setItem(finder + "_pairs", uniquePairs);
         }
     }
     else {
         let pairs = [newPair];
         pairs = JSON.stringify(pairs);
-        localStorage.setItem(finder + "_pairs", pairs);
+        //localStorage.setItem(finder + "_pairs", pairs);
+    }
+
+    if (!pairFound) {
+        // Add pair to database
+        try {
+            const request = {
+                method: 'POST',
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify(newPair)
+            }
+
+            const result = await fetch('/api/addPair');
+        } catch {
+            console.log("Error while adding new pair to database.");
+        }
     }
 }
 
-function addNewObject(object) {
+async function addNewObject(object, objects) {
     const finder = localStorage.getItem("username");
     let objectList = localStorage.getItem(finder + "_objects");
+    let objectFound = false;
 
     if (objectList) {
-        let objectFound = false;
         objectList = JSON.parse(objectList);
         for (let obj in objectList) {
             obj = objectList[obj];
@@ -198,13 +222,28 @@ function addNewObject(object) {
         if (!objectFound) {
             objectList.push(object);
             objectList = JSON.stringify(objectList);
-            localStorage.setItem(finder + "_objects", objectList);
+            //localStorage.setItem(finder + "_objects", objectList);
         }
     }
     else {
         let objects = [object]
         objects = JSON.stringify(objects);
-        localStorage.setItem(finder + "_objects", objects);
+        //localStorage.setItem(finder + "_objects", objects);
+    }
+
+    if (!objectFound) {
+        // Add object to database
+        try {
+            const request = {
+                method: 'POST',
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify(object)
+            }
+
+            const result = await fetch('/api/addObject');
+        } catch {
+            console.log("Error while adding new ojbect to database.");
+        }
     }
 }
 

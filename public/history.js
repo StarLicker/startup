@@ -36,13 +36,24 @@ function updateStats() {
 async function updateHistory() {
     let historyTable = [];
     let history = "";
+
+    const name = {
+        username: localStorage.getItem("username")
+    }
+    const request = {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify(name)
+    }
+
     try {
-        const response = await fetch("/api/history");
+        const response = await fetch("/api/history", request);
         const convert = await response.json();
         history = convert.body;
+        historyTable = JSON.parse(history);
         
-        if (history) {
-            historyTable = history.reverse();
+        if (historyTable) {
+            historyTable.reverse();
         }
     } catch {
         const userHistory = localStorage.getItem("username") + "_history";
@@ -87,5 +98,5 @@ async function updateHistory() {
 }
 
 let user = localStorage.getItem("username");
-updateStats();
+//updateStats();
 updateHistory();
