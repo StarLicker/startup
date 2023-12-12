@@ -53,3 +53,12 @@
 
 - On Laptop: ./deployService.sh -k "C:\Users\benny\Downloads\CS260_Server.pem" -h gotta-convert-them-all.click -s startup
 - On PC: ./deployService.sh -k "C:\Users\Admin\Desktop\CS260_Server.pem" -h gotta-convert-them-all.click -s startup
+
+
+**How to add .env after deploying**
+- ssh into server:
+    - SSH command: ssh -i "C:\Users\Admin\Desktop\CS260_Server.pem" ubuntu@52.207.139.208
+    - Or on laptop: ssh -i "C:\Users\benny\Downloads\CS260_Server.pem" ubuntu@52.207.139.208
+- cd into startup folder
+- create a .env file and copy/paste OpenAI API key
+- cd back to main directory and restart pm2 -> pm2 restart startup
