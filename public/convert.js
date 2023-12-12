@@ -91,13 +91,17 @@ async function saveConversion(conversion_info) {
         const obj = await fetch('/api/getObjects');
         const objects = await obj.json();
 
-        const pr = await fetch('/api/getObjectPairs');
+        const pr = await fetch('/api/getPairs');
         const pairs = await pr.json();
 
         // Check if the search included a new object pair or new objects
         addNewObjectPair(conversion_info.objectOne, conversion_info.objectTwo, pairs);
         addNewObject(conversion_info.objectOne, objects);
-        addNewObject(conversion_info.objectTwo, objects);
+
+        const obj2 = await fetch('/api/getObjects');
+        const objects2 = await obj2.json();
+
+        addNewObject(conversion_info.objectTwo, objects2);
     } catch {
         // If we encounter an error, store everything locally
         // Check local storage and add new conversion to user history
@@ -165,7 +169,7 @@ async function addNewObjectPair(objectOne, objectTwo, pairs) {
 
     let pairFound = false;
     if (uniquePairs) {
-        uniquePairs = JSON.parse(uniquePairs);
+        uniquePairs = JSON.parse(uniquePairs.body);
 
         for (let pair in uniquePairs) {
             pair = uniquePairs[pair];
@@ -198,7 +202,7 @@ async function addNewObjectPair(objectOne, objectTwo, pairs) {
                 body: JSON.stringify(newPair)
             }
 
-            const result = await fetch('/api/addPair');
+            const result = await fetch('/api/store_pair', request);
         } catch {
             console.log("Error while adding new pair to database.");
         }
@@ -207,13 +211,16 @@ async function addNewObjectPair(objectOne, objectTwo, pairs) {
 
 async function addNewObject(object, objects) {
     const finder = localStorage.getItem("username");
-    let objectList = localStorage.getItem(finder + "_objects");
+    let objectList = objects.body;
     let objectFound = false;
+    const objs = {
+        object: object
+    };
 
     if (objectList) {
         objectList = JSON.parse(objectList);
         for (let obj in objectList) {
-            obj = objectList[obj];
+            obj = objectList[obj].object;
             if (obj === object) {
                 objectFound = true;
             }
@@ -237,10 +244,10 @@ async function addNewObject(object, objects) {
             const request = {
                 method: 'POST',
                 headers: {'content-type': 'application/json'},
-                body: JSON.stringify(object)
+                body: JSON.stringify(objs)
             }
 
-            const result = await fetch('/api/addObject');
+            const result = await fetch('/api/store_object', request);
         } catch {
             console.log("Error while adding new ojbect to database.");
         }

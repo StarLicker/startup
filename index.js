@@ -3,6 +3,7 @@ const app = express();
 require('dotenv').config()
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 const DB = require('./database.js');
+let un = "";
 
 // Setting up openai using apikey
 const OpenAI = require("openai");
@@ -20,78 +21,193 @@ app.use(express.static('public'));
 var apiRouter = express.Router();
 app.use('/api', apiRouter);
 
+// Create new stats entry for user
+apiRouter.post("/createStats", (req, res) => {
+  try {
+    const result = DB.initializeStats(req.body.username);
+
+    res.status(200).json({
+      success: true,
+      body: JSON.stringify(result)
+    });
+  } catch {
+    res.status(500).json({
+      success: false,
+      body: "Error while inserting into database."
+    });
+  }
+});
+
+apiRouter.post("/getStats", async (req, res) => {
+  try {
+    const stats = await DB.getStats(req.body.username);
+    
+    res.status(200).json({
+      success: true,
+      body: JSON.stringify(stats[0])
+    });
+  } catch {
+    res.status(500).json({
+      success: false,
+      body: "Error while accessing database."
+    });
+  }
+});
+
+apiRouter.get("/getObjectHighScores", async (_req, res) => {
+  try {
+    const results = await DB.getHighObjectScores();
+
+    res.status(200).json({
+      success: true,
+      body: JSON.stringify(results)
+    });
+  } catch {
+    res.status(500).json({
+      success: false,
+      body: "Error while accessing database."
+    });
+  }
+})
+
 // Take new conversion and store in database
-apiRouter.post("/store_conversion", (req, res) => {
-  const result = DB.addConversion(req.body);
+apiRouter.post("/store_conversion", async (req, res) => {
+  un = req.body.username;
+  try {
+    const result = DB.addConversion(req.body);
 
-  // Update user stats in database
-  //updateStats(req.body.username);
+    // Update user stats in database
+    let stats = await DB.getStats(req.body.username);
+    stats[0].stats.num_conversions = await stats[0].stats.num_conversions + 1;
 
-  res.status(200).json({
-    success: true,
-    body: JSON.stringify(result)
-  });
+    const new_stats = {
+      username: req.body.username,
+      stats: stats[0].stats
+    };
+
+    await DB.updateStats(req.body.username, new_stats);
+  
+    res.status(200).json({
+      success: true,
+      body: JSON.stringify(result)
+    });
+  } catch {
+    res.status(500).json({
+      success: false,
+      body: "Error while inserting into database."
+    });
+  }
 });
 
 // Store object
-apiRouter.post("/store_object", (req, res) => {
-  const result = DB.addObject(req.body);
+apiRouter.post("/store_object", async (req, res) => {
+  try {
+    const result = DB.addObject(req.body);
 
-  // Update stats
-
-  res.status(200).json({
-    success: true,
-    body: JSON.stringify(result)
-  });
+      // Update user stats in database
+      let stats = await DB.getStats(un);
+      stats[0].stats.unique_objects = await stats[0].stats.unique_objects + 1;
   
+      const new_stats = {
+        username: un,
+        stats: stats[0].stats
+      };
+  
+      await DB.updateStats(un, new_stats);
+  
+    res.status(200).json({
+      success: true,
+      body: JSON.stringify(result)
+    });
+  } catch {
+    const result = DB.addObject(req.body);
+
+    res.status(500).json({
+      success: false,
+      body: "Error while inserting into database."
+    });
+  }
 });
 
 // Get all objects
-apiRouter.get("/getObjects", (_req, res) => {
-  const result = DB.getObjects();
-
-  // Update stats
-
-  res.status(200).json({
-    success: true,
-    body: JSON.stringify(result)
-  });
+apiRouter.get("/getObjects", async (_req, res) => {
+  try {
+    const result = await DB.getObjects();
   
+    res.status(200).json({
+      success: true,
+      body: JSON.stringify(result)
+    });
+  } catch {
+    res.status(500).json({
+      success: false,
+      body: "Error while retrieving from database."
+    });
+  }
 });
 
 // Store pair
-apiRouter.post("/store_pair", (req, res) => {
-  const result = DB.addPair(req.body);
+apiRouter.post("/store_pair", async (req, res) => {
+  try {
+    const result = DB.addObjectPair(req.body);
 
-  // Update stats
+    // Update user stats in database
+    let stats = await DB.getStats(un);
+    stats[0].stats.unique_pairs = await stats[0].stats.unique_pairs + 1;
 
-  res.status(200).json({
-    success: true,
-    body: JSON.stringify(result)
-  });
+    const new_stats = {
+      username: un,
+      stats: stats[0].stats
+    };
+
+    await DB.updateStats(un, new_stats);
+  
+    res.status(200).json({
+      success: true,
+      body: JSON.stringify(result)
+    });
+  } catch {
+    res.status(500).json({
+      success: false,
+      body: "Error while inserting into database."
+    });
+  }
 });
 
 // Get all pairs
-apiRouter.get("/getPairs", (_req, res) => {
-  const result = DB.getObjectPairs();
+apiRouter.get("/getPairs", async (_req, res) => {
+  try {
+    const result = await DB.getObjectPairs();
 
-  // Update stats
+    // Update stats
 
-  res.status(200).json({
-    success: true,
-    body: JSON.stringify(result)
-  });
-  
+    res.status(200).json({
+      success: true,
+      body: JSON.stringify(result)
+    });
+  } catch {
+    res.status(500).json({
+      success: false,
+      body: "Error while retrieving from database."
+    });
+  }
 });
 
 // Retrieve user history from database
 apiRouter.post("/history", async (req, res) => {
-  const history = await DB.getHistory(req.body.username)
+  try {
+    const history = await DB.getHistory(req.body.username)
 
-  res.status(200).json({
-      success: true,
-      body: JSON.stringify(history)
+    res.status(200).json({
+        success: true,
+        body: JSON.stringify(history)
+      });
+  } catch {
+    res.status(500).json({
+      success: false,
+      body: "Error while retrieving from database."
     });
+  }
 });
 
 // Take convert request and send to openai endpoint

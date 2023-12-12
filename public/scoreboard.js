@@ -1,5 +1,8 @@
-function displayObjectsBoard() {
+async function displayObjectsBoard() {
     let data = [];
+
+    // Get data from database
+    //const result = await fetch("/api/")
 
     for (let user in users) {
         user = users[user];

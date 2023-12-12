@@ -6,7 +6,7 @@ const db = client.db('startup');
 const history_collection = db.collection('history_test');
 const stat_collection = db.collection('stats');
 const pair_collection = db.collection('object_pairs');
-const object_collection = db.collection('objects');
+const object_collection = db.collection('unique_objects');
 
 // Test that you can connect to the database
 (async function testConnection() {
@@ -23,71 +23,88 @@ async function addConversion(conversion) {
   return result;
 }
 
+// Initialize user stats
+async function initializeStats(username) {
+  stats = {
+    unique_objects: 0,
+    unique_pairs: 0,
+    num_conversions: 0
+  };
+  new_user = {
+    username: username,
+    stats: stats
+  };
+  const result = await stat_collection.insertOne(new_user);
+  return result;
+}
+
 // Update user stats
 async function updateStats(username, stats) {
-  const result = await stat_collection.update({username: username}, stats);
+  const result = await stat_collection.replaceOne({username: username}, stats);
   return result;
 }
 
 // Retrieve user stats
-async function getStats(username) {
+function getStats(username) {
   const query = { username: username };
   const cursor = stat_collection.find(query);
   return cursor.toArray();
 }
 
 // Grab conversion history for a specific user
-async function getHistory(username) {
+function getHistory(username) {
   const query = { username: username };
   const cursor = history_collection.find(query);
   return cursor.toArray();
 }
 
 // Grab all unique object pairs
-async function getObjectPairs() {
-  const cursor = pair_collection.find();
+function getObjectPairs() {
+  const cursor = pair_collection.find({});
   return cursor.toArray();
 }
 
 // Add a unique pair
 async function addObjectPair(pair) {
-  const result = await pair_collection.update(pair);
+  const result = await pair_collection.insertOne(pair);
   return result;
 }
 
 // Grab all unique objects
-async function getObjects() {
-  const cursor = object_collection.find();
+function getObjects() {
+  const cursor = object_collection.find({});
   return cursor.toArray();
 }
 
 // Add a unique object
 async function addObject(object) {
-  const result = object_collection.update(object);
+  const result = await object_collection.insertOne(object);
   return result;
 }
 
 // Grab and sort high scores for number of unique pairs
 async function getHighPairScores() {
-
+  const cursor = stat_collection.find({}).sort({"stats.unique_pairs":-1}).limit(5);
+  return cursor.toArray();
 }
 
 // Grab and sort high scores for number of unique objects
 async function getHighObjectScores() {
+  // const result = await stat_collection.aggregate([
+  //   {
+  //     $sort: {
+  //       unique_objects: -1
+  //     }
+  //   },
+  //   {
+  //     $limit: 10
+  //   }
+  // ])
 
+  const cursor = stat_collection.find({}).sort({"stats.unique_objects":-1}).limit(5);
+  return await cursor.toArray();
 }
 
-module.exports = { addConversion, updateStats, getStats, getObjectPairs, 
+module.exports = { initializeStats, addConversion, updateStats, getStats, getObjectPairs, 
                     addObjectPair, getObjects, addObject, getHistory, getHighPairScores, 
                     getHighObjectScores };
-
-// const test_conversion = {
-//   username: "test",
-//   date: "11/23/2023",
-//   objectOne: "Apple",
-//   objectTwo: "Saturn",
-//   measurementType: "Volume",
-//   result: "A lot of apples will fit inside Pluto!"
-// };
-
-// addConversion(test_conversion).catch(console.error);

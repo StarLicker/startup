@@ -1,7 +1,7 @@
 // Keep track if an error message has been displayed for sign in/log in
 let msgDisplayed = false;
 
-function signUp() {
+async function signUp() {
     // Get username
     const username = document.querySelector("#username");
 
@@ -18,6 +18,17 @@ function signUp() {
     else {
         // If sign up data is good, log the user in and send them to convert page
         if ((password.value === repeat_password.value) == true) {
+            const request = {
+                method: 'POST',
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify(user = {
+                    username: username.value
+                })
+            };
+
+            const response = await fetch("/api/createStats", request);
+            const result = await response.json();
+
             addUser(username.value);
             localStorage.setItem("username", username.value);
             localStorage.setItem(username.value, password.value);
