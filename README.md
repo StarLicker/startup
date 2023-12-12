@@ -75,3 +75,14 @@ I styled my application to basically it's final appearance using CSS. I'll proba
 - Backend provides service endpoints (updating user history and retrieving user history)
 - Frontend calls service endpoints (OpenAI, updating user history, and retrieving user history)
 - Multiple, meaningful Git commits with comments.
+
+**DB Deliverable**
+
+*Simon*
+- Deployed to production environment and connected to database.
+
+*Startup*
+- MongoDB Atlas datbase was created!
+- Made backend endpoints for conversion history and stat data for storage and retrieval.
+- Stores all this data in MongoDB.
+- Multiple, meaningful Git commits with comments.
