@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
+const { peerProxy } = require('./peerProxy.js');
 require('dotenv').config()
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 const DB = require('./database.js');
@@ -20,6 +21,9 @@ app.use(cookieParser());
 
 // Serve up the front-end static content hosting
 app.use(express.static('public'));
+
+// Trust headers that are forwarded from proxy so we can determine IP addresses
+app.set('trust proxy', true);
 
 // Router for service endpoints
 var apiRouter = express.Router();
@@ -319,6 +323,8 @@ function setAuthCookie(res, authToken) {
   });
 }
 
-app.listen(port, () => {
+const httpService = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+peerProxy(httpService);

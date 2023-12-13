@@ -4,6 +4,9 @@
 
 let errorMsgDisplayed = false;
 
+// Start and configure websocket
+socket = configureWebSocket();
+
 async function convert(event) {
     // Disable buttons/links while conversion is processing
     disablePage();
@@ -67,6 +70,14 @@ async function convert(event) {
         };
         displayResult(result);
         saveConversion(conversion_info);
+
+        const msg = localStorage.getItem("userName") + " just converted between " + objectOne + " and " + objectTwo + "!";
+
+        try {
+            broadcastEvent(socket, msg);
+        } catch (e) {
+            console.log(e.message);
+        }
     } catch {
         // If there was an error, display error message
         displayResult("Sorry, an error occurred while servicing request. Please try again later.");
@@ -275,4 +286,36 @@ function logout() {
     fetch('/api/auth/logout', {
         method: 'delete',
     }).then(() => (window.location.href = '/'));
+}
+
+// Functionality for websocket communication
+function configureWebSocket() {
+    const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+    socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+    socket.onopen = (event) => {
+        displayMsg('WebSocket connected. Waiting for another user to make a conversion.');
+    };
+    socket.onclose = (event) => {
+        displayMsg('WebSocket connection closed.');
+    };
+
+    socket.onmessage = async (event) => {
+        const msg = JSON.parse(await event.data.text());
+        displayMsg(msg.value);
+    };
+
+    return socket;
+}
+
+function displayMsg(message) {
+    const text = document.querySelector('#ws_text');
+    text.textContent = message;
+}
+
+function broadcastEvent(socket, msg) {
+const event = {
+    value: msg
+}
+
+    socket.send(JSON.stringify(event));
 }

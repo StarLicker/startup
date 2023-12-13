@@ -2,6 +2,10 @@ label {
     padding-left: 20px;
 }
 
+#websocket_location {
+    padding-top: 20px;
+}
+
 .fieldset {
     font-size: 20px;
     font-weight: bold;
