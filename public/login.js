@@ -62,7 +62,7 @@ async function signUp() {
             // const response = await fetch("/api/createStats", request);
             // const result = await response.json();
 
-            logOrSignUp("signup", username, password, '/api/auth/signUp');
+            logOrSignUp("signup", username.value, password.value, '/api/auth/signUp');
         }
         // Otherwise, we tell user that passwords don't match
         else {
@@ -78,21 +78,8 @@ function login() {
     // Get username and password
     const username = document.querySelector("#username");
     const password = document.querySelector("#password");
-
-    // Check if input matches a user
-    const checkStorage = localStorage.getItem(username.value);
     
-    if (checkStorage === password.value) {
-        localStorage.setItem("username", username.value);
-        window.location.href = "convert.html";
-        msgDisplayed = false;
-    }
-    else {
-        const template = document.getElementById('errorMSG_template');
-        const location = document.getElementById('login_error_location');
-        displayErrorMessage(template, location, "Username and/or password is incorrect");
-        msgDisplayed = true;
-    }
+    logOrSignUp('login', username.value, password.value, '/api/auth/login');
 }
 
 function displayErrorMessage(template, location, message) {

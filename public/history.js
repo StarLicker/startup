@@ -45,7 +45,7 @@ async function updateStats() {
     //     numPairs = 0;
     // }
 
-    // const history = localStorage.getItem("username") + "_history";
+    // const history = localStorage.getItem("userName") + "_history";
     // let numConversions = localStorage.getItem(history);
     // numConversions = JSON.parse(numConversions);
     // try {
@@ -60,7 +60,7 @@ async function updateHistory() {
     let history = "";
 
     const name = {
-        username: localStorage.getItem("username")
+        username: localStorage.getItem("userName")
     }
     const request = {
         method: 'POST',
@@ -78,7 +78,7 @@ async function updateHistory() {
             historyTable.reverse();
         }
     } catch {
-        const userHistory = localStorage.getItem("username") + "_history";
+        const userHistory = localStorage.getItem("userName") + "_history";
         history = localStorage.getItem(userHistory);
         
         if (history) {
@@ -115,10 +115,17 @@ async function updateHistory() {
         }
     }
     else {
-        tableBody.innerHTML = '<tr class="history_row"<td class="history_data" colSpan=5>No conversion made yet</td></tr>';
+        tableBody.innerHTML = '<tr class="history_row"<td class="history_data" colSpan=5>No conversions made yet</td></tr>';
     }
 }
 
-let user = localStorage.getItem("username");
+function logout() {
+    localStorage.removeItem('userName');
+    fetch('/api/auth/logout', {
+        method: 'delete',
+    }).then(() => (window.location.href = '/'));
+}
+
+let user = localStorage.getItem("userName");
 updateStats();
 updateHistory();

@@ -29,7 +29,7 @@ function getUserByToken(token) {
   return user_collection.findOne({ token: token });
 }
 
-async function createUser(email, password) {
+async function createUser(username, password) {
   // Hash password before putting into database
   const passwordHash = await bcrypt.hash(password, 10);
 
@@ -39,6 +39,8 @@ async function createUser(email, password) {
     token: uuid.v4(),
   };
   await user_collection.insertOne(user);
+
+  initializeStats(username);
 
   return user;
 }

@@ -11,3 +11,7 @@ JS:
 Node/OpenAI:
 - Probably need to have 3 separate api calls for figuring out the
   measurements for each object and then the conversion itself
+
+Other:
+- Why does the history page logout function take you back to sign up instead of log in?
+- Are there any ways to help history page load in quicker?

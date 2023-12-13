@@ -58,7 +58,7 @@ async function convert(event) {
 
         // save conversion to history
         const conversion_info = {
-            username: localStorage.getItem("username"),
+            username: localStorage.getItem("userName"),
             date: conversionDate,
             objectOne: objectOne,
             objectTwo: objectTwo,
@@ -84,7 +84,7 @@ async function saveConversion(conversion_info) {
     try {
         const response = await fetch('/api/store_conversion', request);
         const result = await response.json();
-        const name = localStorage.getItem("username") + "_history";
+        const name = localStorage.getItem("userName") + "_history";
         localStorage.setItem(name, history.body);
 
         // Retrieve list of object pairs and objects
@@ -105,7 +105,7 @@ async function saveConversion(conversion_info) {
     } catch {
         // If we encounter an error, store everything locally
         // Check local storage and add new conversion to user history
-        const history = localStorage.getItem("username") + "_history";
+        const history = localStorage.getItem("userName") + "_history";
         let userHistory = localStorage.getItem(history);
 
         if (userHistory !== null) {
@@ -158,7 +158,7 @@ function getDate() {
 }
 
 async function addNewObjectPair(objectOne, objectTwo, pairs) {
-    const finder = localStorage.getItem("username");
+    const finder = localStorage.getItem("userName");
 
     let uniquePairs = pairs;
     // let uniquePairs = localStorage.getItem(finder + "_pairs");
@@ -210,7 +210,7 @@ async function addNewObjectPair(objectOne, objectTwo, pairs) {
 }
 
 async function addNewObject(object, objects) {
-    const finder = localStorage.getItem("username");
+    const finder = localStorage.getItem("userName");
     let objectList = objects.body;
     let objectFound = false;
     const objs = {
@@ -268,4 +268,11 @@ function displayErrorMessage(template, location, message) {
 
 function disablePage() {
     // Best way to implement?
+}
+
+function logout() {
+    localStorage.removeItem('userName');
+    fetch('/api/auth/logout', {
+        method: 'delete',
+    }).then(() => (window.location.href = '/'));
 }
