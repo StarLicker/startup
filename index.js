@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cookieParser = require('cookie-parser');
 require('dotenv').config()
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 const DB = require('./database.js');
@@ -11,8 +12,9 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-//JSON body parsing using built-in middleware
+//JSON body parsing and cookie parsing using built-in middleware
 app.use(express.json());
+app.use(cookieParser());
 
 // Serve up the front-end static content hosting
 app.use(express.static('public'));
@@ -38,7 +40,44 @@ apiRouter.post("/createStats", (req, res) => {
   }
 });
 
-apiRouter.post("/getStats", async (req, res) => {
+apiRouter.post("/auth/signUp", async (req, res) => {
+  if (await DB.getUser(req.body.username)) {
+    res.status(409).send({ msg: 'Existing user' });
+  } else {
+    const user = DB.createUser(req.body.username, req.body.password);
+
+    // Set cookie
+    setAuthCookie(res, user.token);
+
+    res.send({
+      id: user._id,
+    });
+  }
+});
+
+apiRouter.post("/auth/login", async (res, req) => {
+  const user = await DB.getUser(req.body.username);
+  if (user) {
+    if (await bcrpyt.compare(req.body.password, user.password)) {
+      setAuthCookie(res, user.token);
+      res.send({ id: user._id });
+      return;
+    }
+  }
+
+  res.status(401).send({ msg: "Unauthorized" });
+});
+
+apiRouter.delete('/auth/logout', (_req, res) => {
+  res.clearCookie(authCookieName);
+  res.status(204).end();
+});
+
+// secureApiRouter verifies credentials for endpoints
+var secureApiRouter = express.Router();
+apiRouter.use(secureApiRouter);
+
+secureApiRouter.post("/getStats", async (req, res) => {
   try {
     const stats = await DB.getStats(req.body.username);
     
@@ -54,7 +93,7 @@ apiRouter.post("/getStats", async (req, res) => {
   }
 });
 
-apiRouter.get("/getObjectHighScores", async (_req, res) => {
+secureApiRouter.get("/getObjectHighScores", async (_req, res) => {
   try {
     const results = await DB.getHighObjectScores();
 
@@ -71,7 +110,7 @@ apiRouter.get("/getObjectHighScores", async (_req, res) => {
 })
 
 // Take new conversion and store in database
-apiRouter.post("/store_conversion", async (req, res) => {
+secureApiRouter.post("/store_conversion", async (req, res) => {
   un = req.body.username;
   try {
     const result = DB.addConversion(req.body);
@@ -100,7 +139,7 @@ apiRouter.post("/store_conversion", async (req, res) => {
 });
 
 // Store object
-apiRouter.post("/store_object", async (req, res) => {
+secureApiRouter.post("/store_object", async (req, res) => {
   try {
     const result = DB.addObject(req.body);
 
@@ -130,7 +169,7 @@ apiRouter.post("/store_object", async (req, res) => {
 });
 
 // Get all objects
-apiRouter.get("/getObjects", async (_req, res) => {
+secureApiRouter.get("/getObjects", async (_req, res) => {
   try {
     const result = await DB.getObjects();
   
@@ -147,7 +186,7 @@ apiRouter.get("/getObjects", async (_req, res) => {
 });
 
 // Store pair
-apiRouter.post("/store_pair", async (req, res) => {
+secureApiRouter.post("/store_pair", async (req, res) => {
   try {
     const result = DB.addObjectPair(req.body);
 
@@ -175,7 +214,7 @@ apiRouter.post("/store_pair", async (req, res) => {
 });
 
 // Get all pairs
-apiRouter.get("/getPairs", async (_req, res) => {
+secureApiRouter.get("/getPairs", async (_req, res) => {
   try {
     const result = await DB.getObjectPairs();
 
@@ -194,7 +233,7 @@ apiRouter.get("/getPairs", async (_req, res) => {
 });
 
 // Retrieve user history from database
-apiRouter.post("/history", async (req, res) => {
+secureApiRouter.post("/history", async (req, res) => {
   try {
     const history = await DB.getHistory(req.body.username)
 
@@ -211,7 +250,7 @@ apiRouter.post("/history", async (req, res) => {
 });
 
 // Take convert request and send to openai endpoint
-apiRouter.post("/convert", async (req, res) => {
+secureApiRouter.post("/convert", async (req, res) => {
   const type = req.body.type;
   const objectOne = req.body.obj1;
   const objectTwo = req.body.obj2;
@@ -258,6 +297,15 @@ apiRouter.post("/convert", async (req, res) => {
 app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
 });
+
+// set AuthCookie in the HTTP response
+function setAuthCookie(res, authToken) {
+  res.cookie(authCookieName, authToken, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict',
+  });
+}
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

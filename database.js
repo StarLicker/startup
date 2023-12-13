@@ -1,5 +1,8 @@
 const { MongoClient } = require('mongodb');
 const config = require('./dbConfig.json');
+const bcrypt = require('bcrypt');
+const uuid = require('uuid');
+
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}/?retryWrites=true&w=majority`;
 const client = new MongoClient(url);
 const db = client.db('startup');
@@ -7,6 +10,7 @@ const history_collection = db.collection('history_test');
 const stat_collection = db.collection('stats');
 const pair_collection = db.collection('object_pairs');
 const object_collection = db.collection('unique_objects');
+const user_collection = db.collection('user');
 
 // Test that you can connect to the database
 (async function testConnection() {
@@ -16,6 +20,28 @@ const object_collection = db.collection('unique_objects');
   console.log(`Unable to connect to database with ${url} because ${ex.message}`);
   process.exit(1);
 });
+
+function getUser(username) {
+  return user_collection.findOne({ username: username });
+}
+
+function getUserByToken(token) {
+  return user_collection.findOne({ token: token });
+}
+
+async function createUser(email, password) {
+  // Hash password before putting into database
+  const passwordHash = await bcrypt.hash(password, 10);
+
+  const user = {
+    username: username,
+    password: passwordHash,
+    token: uuid.v4(),
+  };
+  await user_collection.insertOne(user);
+
+  return user;
+}
 
 // Add a user's conversion to their history
 async function addConversion(conversion) {
@@ -105,6 +131,6 @@ async function getHighObjectScores() {
   return await cursor.toArray();
 }
 
-module.exports = { initializeStats, addConversion, updateStats, getStats, getObjectPairs, 
+module.exports = { getUser, getUserByToken, createUser, initializeStats, addConversion, updateStats, getStats, getObjectPairs, 
                     addObjectPair, getObjects, addObject, getHistory, getHighPairScores, 
                     getHighObjectScores };

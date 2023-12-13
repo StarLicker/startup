@@ -1,5 +1,37 @@
+// function to check if user is authorized
+(async () => {
+    const userName = localStorage.getItem('userName');
+    if (userName) {
+        window.location.href = 'convert.html';
+    }
+})();
+
+
 // Keep track if an error message has been displayed for sign in/log in
 let msgDisplayed = false;
+
+async function logOrSignUp(loc, username, password, endpoint) {
+    const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {'Content-type': 'application/json; charset=UTF-8'},
+        body: JSON.stringify({ username: username, password: password })
+    });
+
+    if (response.ok) {
+        localStorage.setItem('userName', username);
+        window.location.href = 'convert.html';
+    } else {
+        const template = document.getElementById('errorMSG_template');
+        const location = null;
+        if (loc === "signup") {
+            location = document.getElementById('first_error_location');
+        } else {
+            location = document.getElementById('login_error_location');
+        }
+        displayErrorMessage(template, location, "Problem while trying to sign up or log in, please try again!");
+        msgDisplayed = true;
+    }
+}
 
 async function signUp() {
     // Get username
@@ -18,22 +50,19 @@ async function signUp() {
     else {
         // If sign up data is good, log the user in and send them to convert page
         if ((password.value === repeat_password.value) == true) {
-            const request = {
-                method: 'POST',
-                headers: {'content-type': 'application/json'},
-                body: JSON.stringify(user = {
-                    username: username.value
-                })
-            };
 
-            const response = await fetch("/api/createStats", request);
-            const result = await response.json();
+            // const request = {
+            //     method: 'POST',
+            //     headers: {'content-type': 'application/json'},
+            //     body: JSON.stringify(user = {
+            //         username: username.value
+            //     })
+            // };
 
-            addUser(username.value);
-            localStorage.setItem("username", username.value);
-            localStorage.setItem(username.value, password.value);
-            window.location.href = "convert.html";
-            msgDisplayed = false;
+            // const response = await fetch("/api/createStats", request);
+            // const result = await response.json();
+
+            logOrSignUp("signup", username, password, '/api/auth/signUp');
         }
         // Otherwise, we tell user that passwords don't match
         else {
