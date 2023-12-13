@@ -86,3 +86,14 @@ I styled my application to basically it's final appearance using CSS. I'll proba
 - Made backend endpoints for conversion history and stat data for storage and retrieval.
 - Stores all this data in MongoDB.
 - Multiple, meaningful Git commits with comments.
+
+**Login Deliverable**
+
+*Simon*
+- I deployed Simon to my production enironment and connected it to my database.
+
+*Startup*
+- User Registration: creates a new account in the database
+- Existing user: able to log in as existing user and store stats and conversion history for them
+- Use MongoDB to store credentials: stores user and their credentials in MongoDB.
+- Restricts Functionality: You can't access any other pages (conversions, history, scoreboard) until you sign up or log in. This is done on the front end and back end with a secure API router.
