@@ -107,4 +107,4 @@ I styled my application to basically it's final appearance using CSS. I'll proba
 - Backend listens for WebSocket connection - Done!
 - Frontend makes WebSocket connection - Done!
 - Data is sent over WebSocket connection - Done! When a user makes a conversion it will show other users what two objects they just used for their conversion.
-- WebSocket data is displayed - Done! User will see what two objects another used for a conversion that just happened.
+- WebSocket data is displayed - Done! On the conversion page, the user will see what two objects another used for a conversion that just happened.
