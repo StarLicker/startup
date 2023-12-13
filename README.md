@@ -97,3 +97,14 @@ I styled my application to basically it's final appearance using CSS. I'll proba
 - Existing user: able to log in as existing user and store stats and conversion history for them
 - Use MongoDB to store credentials: stores user and their credentials in MongoDB.
 - Restricts Functionality: You can't access any other pages (conversions, history, scoreboard) until you sign up or log in. This is done on the front end and back end with a secure API router.
+
+**WebSocket Deliverable**
+
+*Simon*
+- I deployed Simon to my production environment and connected it to my database.
+
+*Startup*
+- Backend listens for WebSocket connection - Done!
+- Frontend makes WebSocket connection - Done!
+- Data is sent over WebSocket connection - Done! When a user makes a conversion it will show other users what two objects they just used for their conversion.
+- WebSocket data is displayed - Done! User will see what two objects another used for a conversion that just happened.
