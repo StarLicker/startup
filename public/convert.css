@@ -6,6 +6,14 @@ label {
     padding-top: 20px;
 }
 
+#ws_text {
+    color: rgb(51, 107, 202);
+}
+
+#result_field {
+    color: rgb(51, 107, 202);
+}
+
 .fieldset {
     font-size: 20px;
     font-weight: bold;
