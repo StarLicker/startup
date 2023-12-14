@@ -1,4 +1,5 @@
 /.vscode
+*/node_modules
+*/.env
+*/dbConfig.json
 /node_modules
-.env
-/dbConfig.json

@@ -1,16 +1,17 @@
 {
-  "name": "startup-server",
-  "version": "1.0.0",
-  "description": "Service connected to OpenAI endpoint to make silly conversions",
-  "main": "index.js",
+  "scripts": {
+    "dev": "vite --port 4000",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.9"
+  },
   "dependencies": {
-    "bcrypt": "^5.1.1",
-    "cookie-parser": "^1.4.6",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "mongodb": "^6.3.0",
-    "openai": "^4.17.5",
-    "uuid": "^9.0.1",
-    "ws": "^8.15.1"
+    "bootstrap": "^5.3.2",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.9.1",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.0"
   }
 }
