@@ -62,3 +62,11 @@
 - cd into startup folder
 - create a .env file and copy/paste OpenAI API key
 - cd back to main directory and restart pm2 -> pm2 restart startup
+
+
+**How to deploy React**
+- On laptop: ./deployReact.sh -k "C:\Users\benny\Downloads\CS260_Server.pem" -h gotta-convert-them-all.click -s simon
+- On PC: ./deployReact.sh -k "C:\Users\Admin\Desktop\CS260_Server.pem" -h gotta-convert-them-all.click -s simon
+
+- On laptop: ./deployReact.sh -k "C:\Users\benny\Downloads\CS260_Server.pem" -h gotta-convert-them-all.click -s startup
+- On PC: ./deployReact.sh -k "C:\Users\Admin\Desktop\CS260_Server.pem" -h gotta-convert-them-all.click -s startup
